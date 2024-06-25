@@ -1,16 +1,16 @@
 import Player from "../game-object/Player";
 
 class Level1Scene extends Phaser.Scene
-    {
+{
     private _cube: Player;
-        preload ()
+    preload ()
     {
-        this.load.image('ball', 'assets/images/player.png');
+        this.load.image('cube', 'assets/images/player.png');
     }
 
     create ()
     {
-        this._cube = new Player(this, 0, 400, 'ball');
+        this._cube = new Player(this, 0, 400, 'cube');
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 // wheel.body.setAccelerationX(100)
@@ -22,5 +22,5 @@ class Level1Scene extends Phaser.Scene
         super.update(time, delta);
         this._cube.update();
     }
-    }
+}
 export default Level1Scene;
