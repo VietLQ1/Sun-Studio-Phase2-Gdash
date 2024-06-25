@@ -9,6 +9,7 @@ declare namespace GeoDash
     }
     interface IPlayerState
     {
+        playerRule: IPlayerRule;
         object: Phaser.GameObjects.Sprite | Phaser.GameObjects.Container;
         onEnter: () => void;
         onExit: () => void;

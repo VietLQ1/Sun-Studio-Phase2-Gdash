@@ -32,3 +32,4 @@ class PlayerStateMachine
         this._currentState.onEnter();
     }
 }
+export default PlayerStateMachine;

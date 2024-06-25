@@ -23,7 +23,10 @@ class Player extends Phaser.GameObjects.Sprite {
     public update(): void {
         let body = this.body as Phaser.Physics.Arcade.Body;
         body.setVelocityX(this.speedX); // Move right at constant speed
-        console.log(body.blocked.down);
+        this.jump();
+    }
+    private jump(): void {
+        let body = this.body as Phaser.Physics.Arcade.Body;
         // Jump if the space key is pressed and the player is touching the ground
         if (this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
