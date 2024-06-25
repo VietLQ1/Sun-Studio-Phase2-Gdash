@@ -6,7 +6,7 @@ class PlayerShip extends Phaser.GameObjects.Container
     {
         super(scene, x, y);
         // Create the player sprite
-        this.add([scene.add.sprite(32, 16, 'cube'), scene.add.sprite(32, 40, 'ship')]);
+        this.add([scene.add.sprite(32, 18, 'cube').setScale(0.75,0.75), scene.add.sprite(32, 40, 'ship')]);
         scene.add.existing(this);
         // Enable physics on this object
         scene.physics.add.existing(this);
@@ -52,7 +52,7 @@ class PlayerShip extends Phaser.GameObjects.Container
             this.angle = 0;
             return;
         }
-        let angleRadians = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+        let angleRadians = Math.atan2(this.body.velocity.y/10, this.body.velocity.x);
         // Convert radians to degrees
         let angleDegrees = Phaser.Math.RadToDeg(angleRadians);
         this.angle = angleDegrees;

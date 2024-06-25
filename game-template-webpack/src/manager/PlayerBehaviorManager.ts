@@ -1,5 +1,7 @@
 import Player from "../game-object/Player";
+import PlayerShip from "../game-object/PlayerShip";
 import PlayerCubeState from "../state-machine/PlayerCubeState";
+import PlayerShipState from "../state-machine/PlayerShipState";
 import PlayerStateMachine from "../state-machine/PlayerStateMachine";
 
 class PlayerBehaviorManager {
@@ -14,6 +16,7 @@ class PlayerBehaviorManager {
         this.currentScene = scene;
         this._playerPosition.set(0, 400);
         this._stateMachine.addState("cube", new PlayerCubeState(new Player(scene, 0, 400, "cube")));
+        this._stateMachine.addState("ship", new PlayerShipState(new PlayerShip(scene, 0, 400)));
         this._stateMachine.setState("cube");
     }
     private static _instance: PlayerBehaviorManager;
