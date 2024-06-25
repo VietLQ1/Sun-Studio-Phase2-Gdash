@@ -5,11 +5,11 @@ import Level1Scene from "./scenes/Level1Scene";
         type: Phaser.AUTO,
         width: window.innerWidth,
         height: 600,
-        scene: Level1Scene,
+        scene: [Level1Scene],
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: {x:0, y: 980 },
+                gravity: {x:0, y: 1500 },
                 debug: true
             }
         }

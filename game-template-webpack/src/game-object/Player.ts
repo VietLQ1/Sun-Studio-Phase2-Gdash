@@ -11,7 +11,7 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 180; // Adjust as needed for game speed
+        this.speedX = 240; // Adjust as needed for game speed
 
         // Initialize jump key
         if (scene.input.keyboard == null)
@@ -22,6 +22,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     public update(): void {
         let body = this.body as Phaser.Physics.Arcade.Body;
+        console.log(body.blocked.down);
         body.setVelocityX(this.speedX); // Move right at constant speed
         this.jump();
     }
@@ -30,7 +31,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // Jump if the space key is pressed and the player is touching the ground
         if (this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
-            body.setVelocityY(-500); // Adjust jump strength as needed
+            body.setVelocityY(-720); // Adjust jump strength as needed
             body.setAngularVelocity(180); // Add some spin to the jump
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }
@@ -42,19 +43,19 @@ class Player extends Phaser.GameObjects.Sprite {
     }
     private flatOut(): void {
         if (this.angle < 45 && this.angle > -45) {
-            console.log("Flat 0");
+            // console.log("Flat 0");
             this.angle = 0;
         }
         else if (this.angle >= 45 && this.angle < 135) {
-            console.log("Flat 90");
+            // console.log("Flat 90");
             this.angle = 90;
         }
         else if (this.angle <= -45 && this.angle > -135) {
-            console.log("Flat -90");
+            // console.log("Flat -90");
             this.angle = -90;
         }
         else if (this.angle >= 135 || this.angle <= -135) {
-            console.log("Flat 180");
+            // console.log("Flat 180");
             this.angle = 180;
         }
     }

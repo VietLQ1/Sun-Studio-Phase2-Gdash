@@ -7,7 +7,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
     public object: Player;
     constructor(object: Player)
     {
-        this.playerRule = {collideBottom: true, collideLeft: false, collideRight: false, collideTop: false};
+        this.playerRule = {collideBottom: true, collideLeft: true, collideRight: false, collideTop: false};
         this.object = object;
     }
     onEnter: () => void = () =>
