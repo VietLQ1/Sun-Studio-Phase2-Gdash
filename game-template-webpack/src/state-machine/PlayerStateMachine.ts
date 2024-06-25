@@ -16,6 +16,8 @@ class PlayerStateMachine
     }
     public addState(name: string, state: GeoDash.IPlayerState): void
     {
+        state.object.setActive(false);
+        state.object.setVisible(false);
         this.stateMap.set(name, state);
     }
     public setState(name: string): void
