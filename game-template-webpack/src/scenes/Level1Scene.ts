@@ -1,5 +1,6 @@
 import Player from "../game-object/Player";
 import PlayerShip from "../game-object/PlayerShip";
+import Spikes from "../game-object/Spikes";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 import GeoDashScene from "./GeoDashScene";
 
@@ -33,6 +34,9 @@ class Level1Scene extends GeoDashScene
         this._spikes = this.add.group({ runChildUpdate: true });
         this.initailize();
         this.loadObjectsFromTilemap();
+        this.physics.add.collider(this._cube, this.layer!);
+        this.physics.add.collider(this._spikes, this.layer!);
+        this.physics.add.collider(this._cube, this._spikes,);
     }
     private initailize(): void
     {
@@ -80,12 +84,19 @@ class Level1Scene extends GeoDashScene
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);
-        this.physics.world.collide(this._cube, this.layer!);
+        //this.physics.world.collide(this._cube, this.layer!);
         this._cube.update();
     }
     private loadObjectsFromTilemap():void
     {
-
+        const objects = this.map.getObjectLayer('object Layer')!.objects as any[];
+        objects.forEach((object) => {
+            if (object.type == "spike")
+            {
+                this._spikes.add(new Spikes(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
+                
+            }
+        });
     }
 }
 export default Level1Scene;

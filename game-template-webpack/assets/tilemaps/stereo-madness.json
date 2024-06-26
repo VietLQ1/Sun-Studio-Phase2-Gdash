@@ -69,6 +69,17 @@
                 }, 
                 {
                  "height":32,
+                 "id":28,
+                 "name":"spike",
+                 "rotation":0,
+                 "type":"spike",
+                 "visible":true,
+                 "width":64,
+                 "x":2304,
+                 "y":1248
+                }, 
+                {
+                 "height":32,
                  "id":18,
                  "name":"spike",
                  "rotation":0,
@@ -195,7 +206,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":27,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
