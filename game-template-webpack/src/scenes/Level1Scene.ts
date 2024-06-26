@@ -18,27 +18,28 @@ class Level1Scene extends Phaser.Scene
         this.load.image('ship', 'assets/images/ship.png');
         this.load.image('bg', 'assets/images/bg.png');
         this.load.image('particle', 'assets/images/particle_001.png')
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/sample-map.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/stereo-madness.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
     }
 
     create ()
     {
         this.map = this.make.tilemap({ key: 'map' });
-        this.tiles = this.map.addTilesetImage('kenney_redux_64x64', 'tiles');
+        this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
             throw new Error("this.map is null");
         if (this.tiles == null)
             throw new Error("this.tiles is null");
-        this.layer = this.map.createLayer('Tile Layer 1', this.tiles);
-        this.map.setCollision([13,25,97],true);
-        this.add.image(0, 0, 'bg').setOrigin(0, 0);
+        this.layer = this.map.createLayer('foregroundLayer', this.tiles);
+        this.layer?.setName("foregroundLayer");
+        this.layer!.setCollisionByProperty({ collide: true });
+        //this.add.image(0, 0, 'bg').setOrigin(0, 0);
         this.initailize();
     }
     private initailize()
     {
-        this.cameras.main.setBounds(0, 0, 1920 * 2, 1280);
-        this.physics.world.setBounds(0, 0, 1920 * 2, 1280);
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         PlayerBehaviorManager.instance.init(this);
         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
         this.cameras.main.startFollow(this._cube, true);

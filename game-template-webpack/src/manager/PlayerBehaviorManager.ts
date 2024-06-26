@@ -14,6 +14,7 @@ class PlayerBehaviorManager {
     }
     public init(scene: Phaser.Scene): void {
         this.currentScene = scene;
+        this._stateMachine.stateMap.clear();
         this._playerPosition.set(0, 1000);
         this._stateMachine.addState("cube", new PlayerCubeState(new Player(scene, 0, 400, "cube")));
         this._stateMachine.addState("ship", new PlayerShipState(new PlayerShip(scene, 0, 400)));

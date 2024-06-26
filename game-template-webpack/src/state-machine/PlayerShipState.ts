@@ -13,9 +13,10 @@ class PlayerShipState implements GeoDash.IPlayerState
     onEnter: () => void = () =>
     {
         console.log("PlayerShipState onEnter");
-        this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
         this.object.setActive(true);
         this.object.setVisible(true);
+        this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
+        
     }
     onExit: () => void = () =>
     {

@@ -19,6 +19,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
     }
     onExit: () => void = () =>
     {
+        console.log(this.object.x, this.object.y)
         console.log("PlayerCubeState onExit");
         PlayerBehaviorManager.instance.playerPosition = new Phaser.Math.Vector2(this.object.x, this.object.y);
         this.object.setActive(false);

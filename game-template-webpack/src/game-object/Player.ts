@@ -11,7 +11,7 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 240; // Adjust as needed for game speed
+        this.speedX = 300; // Adjust as needed for game speed
 
         // Initialize jump key
         if (scene.input.keyboard == null)
@@ -22,7 +22,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     public update(): void {
         let body = this.body as Phaser.Physics.Arcade.Body;
-        console.log(body.blocked.down);
+        console.log(body.blocked.up);
         body.setVelocityX(this.speedX); // Move right at constant speed
         this.jump();
     }
@@ -31,7 +31,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // Jump if the space key is pressed and the player is touching the ground
         if (this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
-            body.setVelocityY(-720); // Adjust jump strength as needed
+            body.setVelocityY(-785); // Adjust jump strength as needed
             body.setAngularVelocity(180); // Add some spin to the jump
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }

@@ -9,7 +9,7 @@ import Level1Scene from "./scenes/Level1Scene";
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: {x:0, y: 1500 },
+                gravity: {x:0, y: 2100 },
                 debug: true
             }
         }
