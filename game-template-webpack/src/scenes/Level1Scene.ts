@@ -1,18 +1,15 @@
 import Player from "../game-object/Player";
 import PlayerShip from "../game-object/PlayerShip";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
+import GeoDashScene from "./GeoDashScene";
 
-class Level1Scene extends Phaser.Scene
+class Level1Scene extends GeoDashScene
 {
-    private _cube: Phaser.GameObjects.Sprite | Phaser.GameObjects.Container;
-    public map : Phaser.Tilemaps.Tilemap;
-    public tiles : Phaser.Tilemaps.Tileset | null;
-    public layer : Phaser.Tilemaps.TilemapLayer | null;
     constructor ()
     {
         super('Level1');
     }
-    preload ()
+    preload () : void
     {
         this.load.image('cube', 'assets/images/player.png');
         this.load.image('ship', 'assets/images/ship.png');
@@ -22,7 +19,7 @@ class Level1Scene extends Phaser.Scene
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
     }
 
-    create ()
+    create () : void
     {
         this.map = this.make.tilemap({ key: 'map' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
@@ -33,10 +30,11 @@ class Level1Scene extends Phaser.Scene
         this.layer = this.map.createLayer('foregroundLayer', this.tiles);
         this.layer?.setName("foregroundLayer");
         this.layer!.setCollisionByProperty({ collide: true });
-        //this.add.image(0, 0, 'bg').setOrigin(0, 0);
+        this._spikes = this.add.group({ runChildUpdate: true });
         this.initailize();
+        this.loadObjectsFromTilemap();
     }
-    private initailize()
+    private initailize(): void
     {
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -80,10 +78,14 @@ class Level1Scene extends Phaser.Scene
         }
         );
     }
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
         super.update(time, delta);
         this.physics.world.collide(this._cube, this.layer!);
         this._cube.update();
+    }
+    private loadObjectsFromTilemap():void
+    {
+
     }
 }
 export default Level1Scene;

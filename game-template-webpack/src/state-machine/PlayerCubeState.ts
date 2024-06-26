@@ -10,14 +10,14 @@ class PlayerCubeState implements GeoDash.IPlayerState
         this.playerRule = {collideBottom: true, collideLeft: true, collideRight: false, collideTop: false};
         this.object = object;
     }
-    onEnter: () => void = () =>
+    public onEnter: () => void = () =>
     {
         console.log("PlayerCubeState onEnter");
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
         this.object.setActive(true);
         this.object.setVisible(true);
     }
-    onExit: () => void = () =>
+    public onExit: () => void = () =>
     {
         console.log(this.object.x, this.object.y)
         console.log("PlayerCubeState onExit");
@@ -27,7 +27,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
         let body = this.object.body as Phaser.Physics.Arcade.Body;
         body.setVelocityX(0);
     }
-    update(): void
+    public update(): void
     {
         this.object.update();
     }
