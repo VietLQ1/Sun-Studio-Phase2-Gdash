@@ -15,4 +15,14 @@ declare namespace GeoDash
         onExit: () => void;
         update(): void;
     }
+    interface IObserver
+    {
+        onNotify(ISubject): void;
+    }
+    interface ISubject
+    {
+        attach(observer: IObserver): void;
+        detach(observer: IObserver): void;
+        notify(): void;
+    }
 }

@@ -11,7 +11,7 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 320; // Adjust as needed for game speed
+        this.speedX = 300; // Adjust as needed for game speed
 
         // Initialize jump key
         if (scene.input.keyboard == null)
