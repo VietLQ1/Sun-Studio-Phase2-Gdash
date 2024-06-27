@@ -4,7 +4,7 @@ import Level1Scene from "./scenes/Level1Scene";
     const config : Phaser.Types.Core.GameConfig = {
         type: Phaser.AUTO,
         width: window.innerWidth,
-        height: 600,
+        height: Math.min(window.innerHeight, 600),
         scene: [Level1Scene],
         physics: {
             default: 'arcade',

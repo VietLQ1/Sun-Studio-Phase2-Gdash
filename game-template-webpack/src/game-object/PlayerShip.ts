@@ -1,7 +1,11 @@
-class PlayerShip extends Phaser.GameObjects.Container
+import InputHandler from "../input/InputHandler";
+import GeoDashScene from "../scenes/GeoDashScene";
+
+class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserver
 {
-    speedX: number;
-    jumpKey: Phaser.Input.Keyboard.Key;
+    public speedX: number;
+    //jumpKey: Phaser.Input.Keyboard.Key;
+    private _flying: boolean = false;
     constructor(scene: Phaser.Scene, x: number, y: number)
     {
         super(scene, x, y);
@@ -16,7 +20,30 @@ class PlayerShip extends Phaser.GameObjects.Container
         // Initialize jump key
         if (scene.input.keyboard == null)
             throw new Error("scene.input.keyboard is null");
-        this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        if (scene instanceof GeoDashScene)
+        {
+            scene.inputHandler.attach(this);
+        }
+        let body = this.body as Phaser.Physics.Arcade.Body;
+        body.setSize(60, 60);
+        body.setMaxVelocityY(1000);
+        //this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    }
+    public onNotify(subject: GeoDash.ISubject): void
+    {
+        console.log("Player notified");
+        if (subject instanceof InputHandler)
+        {
+            console.log("InputHandler instance");
+            if (subject.jumpKey.isDown || subject.pointer.isDown)
+            {
+                this._flying = true;
+            }
+            else
+            {
+                this._flying = false;
+            }
+        }
     }
     public update(): void
     {
@@ -28,7 +55,7 @@ class PlayerShip extends Phaser.GameObjects.Container
     {
         let body = this.body as Phaser.Physics.Arcade.Body;
         // Jump if the space key is pressed and the player is touching the ground
-        if (this.jumpKey.isDown)
+        if (this._flying)//this.jumpKey.isDown)
         {
             body.setVelocityY(-500); // Adjust jump strength as needed
             body.setAllowRotation(true); // Allow the player to rotate in the air

@@ -10,7 +10,7 @@ class Level1Scene extends GeoDashScene
     {
         super('Level1');
     }
-    preload () : void
+    public preload () : void
     {
         this.load.image('cube', 'assets/images/player.png');
         this.load.image('ship', 'assets/images/ship.png');
@@ -20,8 +20,9 @@ class Level1Scene extends GeoDashScene
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
     }
 
-    create () : void
+    public create () : void
     {
+        super.create();
         this.map = this.make.tilemap({ key: 'map' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
@@ -71,6 +72,8 @@ class Level1Scene extends GeoDashScene
                 PlayerBehaviorManager.instance.stateMachine.setState("ship");
                 this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
             }
+            this.physics.add.collider(this._cube, this.layer!);
+            this.physics.add.collider(this._cube, this._spikes,);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 // wheel.body.setAccelerationX(100)

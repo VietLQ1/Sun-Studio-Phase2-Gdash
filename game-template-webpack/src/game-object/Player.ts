@@ -1,7 +1,10 @@
-class Player extends Phaser.GameObjects.Sprite {
-    speedX: number;
-    jumpKey: Phaser.Input.Keyboard.Key;
-    
+import InputHandler from "../input/InputHandler";
+import GeoDashScene from "../scenes/GeoDashScene";
+
+class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
+    public speedX: number;
+    //public jumpKey: Phaser.Input.Keyboard.Key;
+    private _jumping: boolean = false;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -17,9 +20,26 @@ class Player extends Phaser.GameObjects.Sprite {
         if (scene.input.keyboard == null)
             throw new Error("scene.input.keyboard is null");
         console.log(scene.input.keyboard);
-        this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        if (scene instanceof GeoDashScene) {
+            console.log("GeoDashScene instance");
+            scene.inputHandler.attach(this);
+        }
+        let body = this.body as Phaser.Physics.Arcade.Body;
+        body.setSize(60, 60); 
+        //this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
-
+    public onNotify(subject: GeoDash.ISubject): void {
+        console.log("Player notified");
+        if (subject instanceof InputHandler) {
+            console.log("InputHandler instance");
+            if (subject.jumpKey.isDown || subject.pointer.isDown) {
+                this._jumping = true;
+            }
+            else {
+                this._jumping = false;
+            }
+        }
+    }
     public update(): void {
         let body = this.body as Phaser.Physics.Arcade.Body;
         console.log(body.blocked.up);
@@ -29,7 +49,7 @@ class Player extends Phaser.GameObjects.Sprite {
     private jump(): void {
         let body = this.body as Phaser.Physics.Arcade.Body;
         // Jump if the space key is pressed and the player is touching the ground
-        if (this.jumpKey.isDown && body.blocked.down) {
+        if (this._jumping && body.blocked.down){//this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
             body.setVelocityY(-785); // Adjust jump strength as needed
             body.setAngularVelocity(180); // Add some spin to the jump
