@@ -9,12 +9,11 @@ class PlayerBehaviorManager {
     private _playerPosition: Phaser.Math.Vector2;
     public currentScene: Phaser.Scene;
     private constructor() {
-        this._stateMachine = new PlayerStateMachine();
         this._playerPosition = new Phaser.Math.Vector2();
     }
     public init(scene: Phaser.Scene): void {
         this.currentScene = scene;
-        this._stateMachine.stateMap.clear();
+        this._stateMachine = new PlayerStateMachine();
         this._playerPosition.set(0, 1000);
         this._stateMachine.addState("cube", new PlayerCubeState(new Player(scene, 0, 400, "cube")));
         this._stateMachine.addState("ship", new PlayerShipState(new PlayerShip(scene, 0, 400)));

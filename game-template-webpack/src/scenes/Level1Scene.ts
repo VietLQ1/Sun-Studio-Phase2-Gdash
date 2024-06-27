@@ -40,7 +40,7 @@ class Level1Scene extends GeoDashScene
         this.loadObjectsFromTilemap();
         this.physics.add.collider(this._cube, this.layer!);
         this.physics.add.collider(this._spikes, this.layer!);
-        this.physics.add.collider(this._cube, this._spikes,);
+        this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
     }
     private initailize(): void
     {
@@ -76,7 +76,7 @@ class Level1Scene extends GeoDashScene
                 this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
             }
             this.physics.add.collider(this._cube, this.layer!);
-            this.physics.add.collider(this._cube, this._spikes,);
+            this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 // wheel.body.setAccelerationX(100)
@@ -102,6 +102,15 @@ class Level1Scene extends GeoDashScene
                 this._spikes.add(new Spikes(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
                 
             }
+        });
+    }
+    private handleCubeSpikeCollision(cube: any, spike:any ): void
+    {
+        console.log("Cube hit spike");
+        cube.setVisible(false);
+        cube.setActive(false);
+        this.time.delayedCall(1000, () => {
+            this.scene.restart();
         });
     }
 }
