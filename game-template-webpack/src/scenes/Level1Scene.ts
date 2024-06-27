@@ -17,11 +17,13 @@ class Level1Scene extends GeoDashScene
         this.load.image('particle', 'assets/images/particle_001.png')
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/stereo-madness.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
+        this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
     }
 
     public create () : void
     {
         super.create();
+        this._levelBGM = this.sound.add('StereoMadness', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.map = this.make.tilemap({ key: 'map' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
@@ -86,6 +88,7 @@ class Level1Scene extends GeoDashScene
             particles.startFollow(this._cube,0, 32,true);
         }
         );
+        this._levelBGM.play();
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);
@@ -105,13 +108,18 @@ class Level1Scene extends GeoDashScene
     }
     private handleCubeSpikeCollision(cube: any, spike:any ): void
     {
-        console.log("Cube hit spike");
-        cube.setVisible(false);
-        cube.setActive(false);
-        this.cameras.main.stopFollow();
-        this.time.delayedCall(1000, () => {
-            this.scene.restart();
-        });
+        if (cube === this._cube)
+        {
+            console.log("Cube hit spike");
+            cube.setVisible(false);
+            cube.setActive(false);
+            this.cameras.main.stopFollow();
+            this._levelBGM.stop();
+            this.time.delayedCall(1000, () => {
+                
+                this.scene.restart();
+            });
+        }
     }
 }
 export default Level1Scene;

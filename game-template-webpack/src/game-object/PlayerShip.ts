@@ -11,6 +11,14 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         super(scene, x, y);
         // Create the player sprite
         this.add([scene.add.sprite(32, 18, 'cube').setScale(0.75,0.75), scene.add.sprite(32, 40, 'ship')]);
+        this.getAll().forEach((child) => {
+            if (child instanceof Phaser.GameObjects.Sprite)
+            {
+                child.setTint(Math.random() * 0xffffff);
+                
+            }
+        
+        });
         scene.add.existing(this);
         // Enable physics on this object
         scene.physics.add.existing(this);
@@ -25,7 +33,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
             scene.inputHandler.attach(this);
         }
         let body = this.body as Phaser.Physics.Arcade.Body;
-        body.setSize(58, 58);
+        body.setSize(57, 57);
         body.setMaxVelocityY(1000);
         //this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }

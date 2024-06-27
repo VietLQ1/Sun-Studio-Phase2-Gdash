@@ -7,6 +7,7 @@ class GeoDashScene extends Phaser.Scene
     protected _collectibles : Phaser.GameObjects.Group;
     protected _portal : Phaser.GameObjects.Sprite;
     protected _trigger : Phaser.GameObjects.Sprite;
+    protected _levelBGM : Phaser.Sound.WebAudioSound;
     public map : Phaser.Tilemaps.Tilemap;
     public tiles : Phaser.Tilemaps.Tileset | null;
     public layer : Phaser.Tilemaps.TilemapLayer | null;
