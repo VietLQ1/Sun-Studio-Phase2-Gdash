@@ -9,12 +9,12 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.add.existing(this);
-
+        this.setTint(0x00ff00); // Set player color
         // Enable physics on this object
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 300; // Adjust as needed for game speed
+        this.speedX = 310; // Adjust as needed for game speed
 
         // Initialize jump key
         if (scene.input.keyboard == null)
@@ -25,7 +25,7 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
             scene.inputHandler.attach(this);
         }
         let body = this.body as Phaser.Physics.Arcade.Body;
-        body.setSize(60, 60); 
+        body.setSize(55, 55 ); 
         //this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
     public onNotify(subject: GeoDash.ISubject): void {
@@ -51,7 +51,7 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
         // Jump if the space key is pressed and the player is touching the ground
         if (this._jumping && body.blocked.down){//this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
-            body.setVelocityY(-785); // Adjust jump strength as needed
+            body.setVelocityY(-770); // Adjust jump strength as needed
             body.setAngularVelocity(240); // Add some spin to the jump
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }

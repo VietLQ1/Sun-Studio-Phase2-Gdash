@@ -14,7 +14,6 @@ class Level1Scene extends GeoDashScene
     {
         this.load.image('cube', 'assets/images/player.png');
         this.load.image('ship', 'assets/images/ship.png');
-        this.load.image('bg', 'assets/images/bg.png');
         this.load.image('particle', 'assets/images/particle_001.png')
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/stereo-madness.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
@@ -109,6 +108,7 @@ class Level1Scene extends GeoDashScene
         console.log("Cube hit spike");
         cube.setVisible(false);
         cube.setActive(false);
+        this.cameras.main.stopFollow();
         this.time.delayedCall(1000, () => {
             this.scene.restart();
         });

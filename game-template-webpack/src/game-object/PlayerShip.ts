@@ -16,7 +16,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 300; // Adjust as needed for game speed
+        this.speedX = 310; // Adjust as needed for game speed
         // Initialize jump key
         if (scene.input.keyboard == null)
             throw new Error("scene.input.keyboard is null");
@@ -25,7 +25,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
             scene.inputHandler.attach(this);
         }
         let body = this.body as Phaser.Physics.Arcade.Body;
-        body.setSize(60, 60);
+        body.setSize(58, 58);
         body.setMaxVelocityY(1000);
         //this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
