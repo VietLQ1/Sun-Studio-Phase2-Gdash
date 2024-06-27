@@ -10,7 +10,7 @@ import MenuScene from "./scenes/MenuScene";
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: {x:0, y: 2100 },
+                gravity: {x:0, y: 3000 },
                 debug: true
             }
         }

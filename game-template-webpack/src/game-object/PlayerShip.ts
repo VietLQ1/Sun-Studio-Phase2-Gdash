@@ -24,7 +24,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 310; // Adjust as needed for game speed
+        this.speedX = 395; // Adjust as needed for game speed
         // Initialize jump key
         if (scene.input.keyboard == null)
             throw new Error("scene.input.keyboard is null");
@@ -39,10 +39,10 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
     }
     public onNotify(subject: GeoDash.ISubject): void
     {
-        console.log("Player notified");
+        // console.log("Player notified");
         if (subject instanceof InputHandler)
         {
-            console.log("InputHandler instance");
+            // console.log("InputHandler instance");
             if (subject.jumpKey.isDown || subject.pointer.isDown)
             {
                 this._flying = true;

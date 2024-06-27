@@ -37,7 +37,7 @@ class InputHandler implements GeoDash.ISubject {
     private setupInputs(): void {
         // Setup pointer inputs
         this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            console.log(`Pointer down at x: ${pointer.x}, y: ${pointer.y}`);
+            // console.log(`Pointer down at x: ${pointer.x}, y: ${pointer.y}`);
             this.pointer = pointer;
             this.notify(); // Notify observers about the pointer event
         });
@@ -47,7 +47,7 @@ class InputHandler implements GeoDash.ISubject {
         });
         // Setup keyboard inputs, etc.
         this.jumpKey.on('down', (event: KeyboardEvent) => {
-            console.log(`Jump key down: ${event.key}`);
+            // console.log(`Jump key down: ${event.key}`);
             this.notify(); // Notify observers about the jump key event
         });
         this.jumpKey.on('up', (event: KeyboardEvent) => {

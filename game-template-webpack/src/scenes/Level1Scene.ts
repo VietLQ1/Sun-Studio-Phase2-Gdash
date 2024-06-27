@@ -1,5 +1,6 @@
 import Player from "../game-object/Player";
 import PlayerShip from "../game-object/PlayerShip";
+import Portal from "../game-object/Portal";
 import Spikes from "../game-object/Spikes";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 import GeoDashScene from "./GeoDashScene";
@@ -37,11 +38,13 @@ class Level1Scene extends GeoDashScene
         this.layer?.setName("foregroundLayer");
         this.layer!.setCollisionByProperty({ collide: true });
         this._spikes = this.add.group({ runChildUpdate: true });
+        this._portal = this.add.group({ runChildUpdate: true });
         this.initailize();
         this.loadObjectsFromTilemap();
         this.physics.add.collider(this._cube, this.layer!);
         this.physics.add.collider(this._spikes, this.layer!);
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
+        this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
     }
     private initailize(): void
     {
@@ -65,29 +68,30 @@ class Level1Scene extends GeoDashScene
         particles.startFollow(this._cube,0, 32,true);
         if (this.input.keyboard == null)
             throw new Error("this.input.keyboard is null");
-        this.input.keyboard.on('keydown', (event: KeyboardEvent) => {
-            if (event.key === "1")
-            {
-                PlayerBehaviorManager.instance.stateMachine.setState("cube");
-                this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
-            }
-            else if (event.key === "2")
-            {
-                PlayerBehaviorManager.instance.stateMachine.setState("ship");
-                this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
-            }
-            this.physics.add.collider(this._cube, this.layer!);
-            this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
-            if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
-            {
-                // wheel.body.setAccelerationX(100)
-                //.setBounce(1)
-                this._cube.body.setCollideWorldBounds(true);
-            }
-            this.cameras.main.startFollow(this._cube, true);
-            particles.startFollow(this._cube,0, 32,true);
-        }
-        );
+        // this.input.keyboard.on('keydown', (event: KeyboardEvent) => {
+        //     if (event.key === "1")
+        //     {
+        //         PlayerBehaviorManager.instance.stateMachine.setState("cube");
+        //         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
+        //     }
+        //     else if (event.key === "2")
+        //     {
+        //         PlayerBehaviorManager.instance.stateMachine.setState("ship");
+        //         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
+        //     }
+        //     this.physics.add.collider(this._cube, this.layer!);
+        //     this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
+        //     this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
+        //     if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
+        //     {
+        //         // wheel.body.setAccelerationX(100)
+        //         //.setBounce(1)
+        //         this._cube.body.setCollideWorldBounds(true);
+        //     }
+        //     this.cameras.main.startFollow(this._cube, true);
+        //     particles.startFollow(this._cube,0, 32,true);
+        // }
+        // );
         this._levelBGM.play();
     }
     public update(time: number, delta: number): void {
@@ -104,6 +108,11 @@ class Level1Scene extends GeoDashScene
                 this._spikes.add(new Spikes(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
                 
             }
+            if (object.type == "portal")
+            {
+                let nextState = object.properties.find((property: any) => property.name === "nextState")?.value;
+                this._portal.add(new Portal(this, object.x!, object.y!, object.width!, object.height!, nextState)).setName(object.name);
+            }
         });
     }
     private handleCubeSpikeCollision(cube: any, spike:any ): void
@@ -113,12 +122,38 @@ class Level1Scene extends GeoDashScene
             console.log("Cube hit spike");
             cube.setVisible(false);
             cube.setActive(false);
+            this.inputHandler.detach(cube);
             this.cameras.main.stopFollow();
             this._levelBGM.stop();
             this.time.delayedCall(1000, () => {
-                
                 this.scene.restart();
             });
+        }
+    }
+    private overlapPortal(cube: any, portal: any): void
+    {
+        if (cube === this._cube)
+        {
+            console.log("Cube hit portal");
+            this.physics.world.disable(portal);
+            PlayerBehaviorManager.instance.stateMachine.setState(portal.nextState);
+            this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
+            this.physics.add.collider(this._cube, this.layer!);
+            this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
+            this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
+            if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
+            {
+                // wheel.body.setAccelerationX(100)
+                //.setBounce(1)
+                this._cube.body.setCollideWorldBounds(true);
+            }
+            this.cameras.main.startFollow(this._cube, true);
+            const particles = this.add.particles(0, 0, 'particle', {
+                speed: 100,
+                scale: { start: 0.3, end: 0 },
+                blendMode: 'ADD'
+            });
+            particles.startFollow(this._cube,0, 32,true);
         }
     }
 }
