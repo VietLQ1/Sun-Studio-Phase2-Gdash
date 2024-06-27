@@ -29,6 +29,9 @@ class Level1Scene extends GeoDashScene
             throw new Error("this.map is null");
         if (this.tiles == null)
             throw new Error("this.tiles is null");
+        this.bg = this.map.createLayer('backgroundLayer', this.map.addTilesetImage('bg', 'bg')!);
+        this.bg?.setName("backgroundLayer");
+        this.bg?.setTint(0x0000ff);
         this.layer = this.map.createLayer('foregroundLayer', this.tiles);
         this.layer?.setName("foregroundLayer");
         this.layer!.setCollisionByProperty({ collide: true });

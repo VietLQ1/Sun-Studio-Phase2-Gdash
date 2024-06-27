@@ -10,6 +10,7 @@ class GeoDashScene extends Phaser.Scene
     public map : Phaser.Tilemaps.Tilemap;
     public tiles : Phaser.Tilemaps.Tileset | null;
     public layer : Phaser.Tilemaps.TilemapLayer | null;
+    public bg : Phaser.Tilemaps.TilemapLayer | null;
     public inputHandler : InputHandler;
     constructor (config: string | Phaser.Types.Scenes.SettingsConfig)
     {
