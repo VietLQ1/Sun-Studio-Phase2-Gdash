@@ -52,11 +52,11 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
         if (this._jumping && body.blocked.down){//this.jumpKey.isDown && body.blocked.down) {
             console.log("Jumping");
             body.setVelocityY(-785); // Adjust jump strength as needed
-            body.setAngularVelocity(180); // Add some spin to the jump
+            body.setAngularVelocity(240); // Add some spin to the jump
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }
         else if (!body.blocked.down) {
-            body.setAngularVelocity(180); 
+            body.setAngularVelocity(240); 
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }
         else if (body.blocked.down) {
