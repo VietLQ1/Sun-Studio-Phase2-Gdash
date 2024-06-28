@@ -22,7 +22,7 @@ class Level1Scene extends GeoDashScene
         this.createLevelMap();
         this.initailize();
         this.loadObjectsFromTilemap();
-        this.physics.add.collider(this._cube, this.layer!);
+        this.physics.add.collider(this._cube, this.layer!, this.handleMapCollision, undefined, this);
         this.physics.add.collider(this._spikes, this.layer!);
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
         this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
@@ -110,6 +110,22 @@ class Level1Scene extends GeoDashScene
                 this._portal.add(new Portal(this, object.x!, object.y!, object.width!, object.height!, nextState)).setName(object.name);
             }
         });
+    }
+    private handleMapCollision(cube: any, tile: any): void
+    {
+        tile = tile as Phaser.Tilemaps.Tile;
+        if (cube === this._cube)
+        {
+            let body = cube.body as Phaser.Physics.Arcade.Body;
+            if (body.blocked.right && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideRight)
+            {
+                if (tile.properties.isPlatform)
+                {
+                    console.log("Cube hit right");
+                    body.setVelocityY(-910);
+                }
+            }
+        }
     }
     private handleCubeSpikeCollision(cube: any, spike:any ): void
     {

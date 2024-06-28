@@ -423,6 +423,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -430,6 +435,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -495,6 +505,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -556,6 +571,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -693,6 +713,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -754,6 +779,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -819,6 +849,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -826,6 +861,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -882,6 +922,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -889,6 +934,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -954,6 +1004,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -961,6 +1016,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1017,6 +1077,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1024,6 +1089,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1089,6 +1159,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1096,6 +1171,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1152,6 +1232,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1159,6 +1244,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1215,6 +1305,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1222,6 +1317,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1269,6 +1369,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1276,6 +1381,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
@@ -1332,6 +1442,11 @@
                          "name":"collide",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -1339,6 +1454,11 @@
                  "properties":[
                         {
                          "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isPlatform",
                          "type":"bool",
                          "value":true
                         }]
