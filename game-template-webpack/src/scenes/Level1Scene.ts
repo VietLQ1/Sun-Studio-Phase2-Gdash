@@ -64,30 +64,6 @@ class Level1Scene extends GeoDashScene
         particles.startFollow(this._cube,0, 32,true);
         if (this.input.keyboard == null)
             throw new Error("this.input.keyboard is null");
-        // this.input.keyboard.on('keydown', (event: KeyboardEvent) => {
-        //     if (event.key === "1")
-        //     {
-        //         PlayerBehaviorManager.instance.stateMachine.setState("cube");
-        //         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
-        //     }
-        //     else if (event.key === "2")
-        //     {
-        //         PlayerBehaviorManager.instance.stateMachine.setState("ship");
-        //         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
-        //     }
-        //     this.physics.add.collider(this._cube, this.layer!);
-        //     this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
-        //     this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
-        //     if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
-        //     {
-        //         // wheel.body.setAccelerationX(100)
-        //         //.setBounce(1)
-        //         this._cube.body.setCollideWorldBounds(true);
-        //     }
-        //     this.cameras.main.startFollow(this._cube, true);
-        //     particles.startFollow(this._cube,0, 32,true);
-        // }
-        // );
         this._levelBGM.play();
     }
     public update(time: number, delta: number): void {
@@ -122,7 +98,7 @@ class Level1Scene extends GeoDashScene
                 if (tile.properties.isPlatform)
                 {
                     console.log("Cube hit right");
-                    body.setVelocityY(-910);
+                    body.setVelocityY(-200);
                 }
                 else
                 {
@@ -204,8 +180,6 @@ class Level1Scene extends GeoDashScene
             this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
-                // wheel.body.setAccelerationX(100)
-                //.setBounce(1)
                 this._cube.body.setCollideWorldBounds(true);
             }
             this.cameras.main.startFollow(this._cube, true);
