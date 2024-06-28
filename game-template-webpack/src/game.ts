@@ -12,7 +12,7 @@ import LoadScene from "./scenes/LoadScene";
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: {x:0, y: 3000 },
+                gravity: {x:0, y: 3050 },
                 debug: true
             }
         },

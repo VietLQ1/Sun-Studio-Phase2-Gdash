@@ -65,7 +65,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         // Jump if the space key is pressed and the player is touching the ground
         if (this._flying)//this.jumpKey.isDown)
         {
-            body.setVelocityY(-500); // Adjust jump strength as needed
+            body.setVelocityY(-300); // Adjust jump strength as needed
             body.setAllowRotation(true); // Allow the player to rotate in the air
         }
         else if (body.blocked.down)

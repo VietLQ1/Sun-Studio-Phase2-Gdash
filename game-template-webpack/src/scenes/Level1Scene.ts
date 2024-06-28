@@ -19,6 +19,16 @@ class Level1Scene extends GeoDashScene
     {
         super.create();
         this._levelBGM = this.sound.add('StereoMadness', { loop: false }) as Phaser.Sound.WebAudioSound;
+        this.createLevelMap();
+        this.initailize();
+        this.loadObjectsFromTilemap();
+        this.physics.add.collider(this._cube, this.layer!);
+        this.physics.add.collider(this._spikes, this.layer!);
+        this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
+        this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
+    }
+    private createLevelMap(): void
+    {
         this.map = this.make.tilemap({ key: 'map' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
@@ -33,12 +43,6 @@ class Level1Scene extends GeoDashScene
         this.layer!.setCollisionByProperty({ collide: true });
         this._spikes = this.add.group({ runChildUpdate: true });
         this._portal = this.add.group({ runChildUpdate: true });
-        this.initailize();
-        this.loadObjectsFromTilemap();
-        this.physics.add.collider(this._cube, this.layer!);
-        this.physics.add.collider(this._spikes, this.layer!);
-        this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
-        this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
     }
     private initailize(): void
     {
@@ -50,8 +54,6 @@ class Level1Scene extends GeoDashScene
         // this._cube = new PlayerShip(this, 0, 400);
         if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
         {
-            // wheel.body.setAccelerationX(100)
-            //.setBounce(1)
             this._cube.body.setCollideWorldBounds(true);
         }
         const particles = this.add.particles(0, 0, 'particle', {
