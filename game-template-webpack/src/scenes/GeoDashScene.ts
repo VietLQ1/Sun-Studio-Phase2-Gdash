@@ -8,6 +8,7 @@ class GeoDashScene extends Phaser.Scene
     protected _portal : Phaser.GameObjects.Group;
     protected _trigger : Phaser.GameObjects.Group;
     protected _levelBGM : Phaser.Sound.WebAudioSound;
+    protected _explode : Phaser.Sound.WebAudioSound;
     public map : Phaser.Tilemaps.Tilemap;
     public tiles : Phaser.Tilemaps.Tileset | null;
     public layer : Phaser.Tilemaps.TilemapLayer | null;
@@ -19,6 +20,7 @@ class GeoDashScene extends Phaser.Scene
     }
     public create(): void
     {
+        this._explode = this.sound.add('explode', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.inputHandler = new InputHandler(this);
     }
     protected tweenBG(): void{}

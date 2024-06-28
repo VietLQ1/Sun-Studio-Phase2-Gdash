@@ -29,7 +29,7 @@ class Level1Scene extends GeoDashScene
     }
     private createLevelMap(): void
     {
-        this.map = this.make.tilemap({ key: 'map' });
+        this.map = this.make.tilemap({ key: 'lv1' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
             throw new Error("this.map is null");
@@ -124,6 +124,53 @@ class Level1Scene extends GeoDashScene
                     console.log("Cube hit right");
                     body.setVelocityY(-910);
                 }
+                else
+                {
+                    this.physics.world.remove(cube.body);
+                    this._explode.play();
+                    cube.setVisible(false);
+                    cube.setActive(false);
+                    this.inputHandler.detach(cube);
+                    this.cameras.main.stopFollow();
+                    this._levelBGM.stopAndRemoveBufferSource();
+                    this.time.delayedCall(1000, () => {
+                        this.scene.restart();
+                    });
+                }
+            }
+            if (body.blocked.left && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideLeft)
+            {
+                if (tile.properties.isPlatform)
+                {
+                    console.log("Cube hit left");
+                    body.setVelocityY(-910);
+                }
+                else
+                {
+                    this.physics.world.remove(cube.body);
+                    this._explode.play();
+                    cube.setVisible(false);
+                    cube.setActive(false);
+                    this.inputHandler.detach(cube);
+                    this.cameras.main.stopFollow();
+                    this._levelBGM.stopAndRemoveBufferSource();
+                    this.time.delayedCall(1000, () => {
+                        this.scene.restart();
+                    });
+                }
+            }
+            if (body.blocked.up && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideTop)
+            {
+                this.physics.world.remove(cube.body);
+                this._explode.play();
+                cube.setVisible(false);
+                cube.setActive(false);
+                this.inputHandler.detach(cube);
+                this.cameras.main.stopFollow();
+                this._levelBGM.stopAndRemoveBufferSource();
+                this.time.delayedCall(1000, () => {
+                    this.scene.restart();
+                });
             }
         }
     }
@@ -131,12 +178,14 @@ class Level1Scene extends GeoDashScene
     {
         if (cube === this._cube)
         {
+            this.physics.world.remove(cube.body);
             console.log("Cube hit spike");
+            this._explode.play();
             cube.setVisible(false);
             cube.setActive(false);
             this.inputHandler.detach(cube);
             this.cameras.main.stopFollow();
-            this._levelBGM.stop();
+            this._levelBGM.stopAndRemoveBufferSource();
             this.time.delayedCall(1000, () => {
                 this.scene.restart();
             });
@@ -150,7 +199,7 @@ class Level1Scene extends GeoDashScene
             this.physics.world.disable(portal);
             PlayerBehaviorManager.instance.stateMachine.setState(portal.nextState);
             this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
-            this.physics.add.collider(this._cube, this.layer!);
+            this.physics.add.collider(this._cube, this.layer!, this.handleMapCollision, undefined, this);
             this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
             this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
