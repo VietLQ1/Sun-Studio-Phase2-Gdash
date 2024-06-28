@@ -21,5 +21,6 @@ class GeoDashScene extends Phaser.Scene
     {
         this.inputHandler = new InputHandler(this);
     }
+    protected tweenBG(): void{}
 }
 export default GeoDashScene;

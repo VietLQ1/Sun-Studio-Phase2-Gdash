@@ -13,12 +13,6 @@ class Level1Scene extends GeoDashScene
     }
     public preload () : void
     {
-        this.load.image('cube', 'assets/images/player.png');
-        this.load.image('ship', 'assets/images/ship.png');
-        this.load.image('particle', 'assets/images/particle_001.png')
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/stereo-madness.json');
-        this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
-        this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
     }
 
     public create () : void
@@ -33,7 +27,7 @@ class Level1Scene extends GeoDashScene
             throw new Error("this.tiles is null");
         this.bg = this.map.createLayer('backgroundLayer', this.map.addTilesetImage('bg', 'bg')!);
         this.bg?.setName("backgroundLayer");
-        this.bg?.setTint(0x0000ff);
+        this.tweenBG();
         this.layer = this.map.createLayer('foregroundLayer', this.tiles);
         this.layer?.setName("foregroundLayer");
         this.layer!.setCollisionByProperty({ collide: true });
@@ -155,6 +149,25 @@ class Level1Scene extends GeoDashScene
             });
             particles.startFollow(this._cube,0, 32,true);
         }
+    }
+    protected tweenBG(): void
+    {
+        const firstColor = Phaser.Display.Color.ValueToColor(0x0000ff);
+        const secondColor = Phaser.Display.Color.ValueToColor(0xf220ff);
+        this.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 90000,
+            repeat: -1,
+            yoyo: true,
+            onUpdate: (tween) => {
+                const value = tween.getValue();
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(firstColor, secondColor, 100, value);
+                const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b);
+                this.bg?.setTint(color);
+            }
+        });
+
     }
 }
 export default Level1Scene;

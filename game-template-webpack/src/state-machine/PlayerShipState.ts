@@ -13,11 +13,11 @@ class PlayerShipState implements GeoDash.IPlayerState
     public onEnter: () => void = () =>
     {
         let body = this.object.body as Phaser.Physics.Arcade.Body;
-        body.setVelocityY(0);
         console.log("PlayerShipState onEnter");
         this.object.setActive(true);
         this.object.setVisible(true);
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
+        body.setVelocityY(0);
         
     }
     public onExit: () => void = () =>

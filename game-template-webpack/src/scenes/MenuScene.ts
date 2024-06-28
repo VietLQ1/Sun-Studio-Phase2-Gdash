@@ -3,8 +3,6 @@ class MenuScene extends Phaser.Scene {
         super('Menu');
     }
     public preload() {
-        this.load.image('playBtn', 'assets/images/playBtn.png');
-        this.load.image('bg', 'assets/images/bg.png');
     }
     public create() {
         this.add.image(0, 0, 'bg').setOrigin(0, 0).setDisplaySize(this.game.renderer.width, this.game.renderer.height).setTint(0x0000ff).setAlpha(0.75);
