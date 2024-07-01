@@ -1,7 +1,7 @@
 class LoadScene extends Phaser.Scene
 {
-    private loadingBar: Phaser.GameObjects.Graphics;
-    private progressBar: Phaser.GameObjects.Graphics;
+    private loadingBar: Phaser.GameObjects.NineSlice;
+    private loadingBarFill: Phaser.GameObjects.NineSlice;
     constructor()
     {
         super('Load');
@@ -31,17 +31,13 @@ class LoadScene extends Phaser.Scene
     private createLoadingGraphics(): void
     {
         this.add.image(0, 0, 'bg').setOrigin(0, 0).setDisplaySize(this.game.renderer.width, this.game.renderer.height).setTint(0xfff977).setAlpha(0.75);
-        this.add.image(0, 0, 'logo').setOrigin(0, 0).setDisplaySize(this.game.renderer.width / 2, this.game.renderer.height / 2).setPosition(this.game.renderer.width / 4, this.game.renderer.height / 4);
-        this.loadingBar = this.add.graphics();
-        this.loadingBar.fillStyle(0x5E5E5E, 1);
-        this.loadingBar.fillRect(100, 200, 1200, 20);
-        this.progressBar = this.add.graphics();
+        this.add.image(0, 0, 'logo').setOrigin(0, 0).setPosition(this.game.renderer.width / 4, this.game.renderer.height / 4);
+        this.loadingBarFill = this.add.nineslice(this.game.renderer.width / 4 + 5, 400, 'progressFill',0, 845).setOrigin(0, 0.5);
+        this.loadingBar = this.add.nineslice(this.game.renderer.width / 4, 400, 'progressBar',0, 850).setOrigin(0, 0.5);
     }
     private updateBar(percentage: number): void
     {
-        this.progressBar.clear();
-        this.progressBar.fillStyle(0xFFFFFF, 1);
-        this.progressBar.fillRect(100, 200, percentage * 1200, 20);
+        this.loadingBarFill.displayWidth = 845 * percentage;
     }
 }
 export default LoadScene;

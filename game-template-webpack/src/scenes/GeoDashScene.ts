@@ -50,6 +50,7 @@ class GeoDashScene extends Phaser.Scene
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         PlayerBehaviorManager.instance.init(this);
         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
+        //console.log(PlayerBehaviorManager.instance.currentScene);
         this.cameras.main.startFollow(this._cube, true);
         if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
         {
