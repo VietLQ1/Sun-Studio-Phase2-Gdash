@@ -20,3 +20,4 @@ class JumpPad extends Phaser.GameObjects.Zone {
         // Do nothing
     }
 }
+export default JumpPad;

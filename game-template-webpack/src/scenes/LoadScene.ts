@@ -26,6 +26,9 @@ class LoadScene extends Phaser.Scene
         this.load.image('coin2','assets/images/coin-sheet/secretCoin_02.png');
         this.load.image('coin3','assets/images/coin-sheet/secretCoin_03.png');
         this.load.image('coin4','assets/images/coin-sheet/secretCoin_04.png');
+        this.load.image('lv1Btn', 'assets/images/levels/lv1.png');
+        this.load.image('lv2Btn', 'assets/images/levels/lv2.png');
+        this.load.image('lv3Btn', 'assets/images/levels/lv3.png');
     }
     public update(time: number, delta: number): void
     {
