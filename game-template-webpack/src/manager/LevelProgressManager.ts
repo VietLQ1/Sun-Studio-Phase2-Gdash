@@ -7,21 +7,21 @@ class LevelProgressManager {
         return LevelProgressManager.instance;
     }
 
-    private levels: Map<number, number>;
 
-    public getLevelProgress(level: number): number {
-        if (!this.levels.has(level)) {
-            this.levels.set(level, 0);
+    public getLevelProgress(level: string): number {
+        if (!localStorage.getItem(level)) {
+            localStorage.setItem(level, "0");
         }
-        return this.levels.get(level)!;
+        return parseFloat(localStorage.getItem(level)!);
     }
-    public setLevelProgress(level: number, progress: number): void {
-        if (!this.levels.has(level)) {
-            this.levels.set(level, progress);
+    public setLevelProgress(level: string, progress: number): void {
+        if (!localStorage.getItem(level)) {
+            localStorage.setItem(level, progress.toString());
         }
-        else if (this.levels.get(level)! < progress)
+        else if (parseFloat(localStorage.getItem(level)!) < progress)
         {
-            this.levels.set(level, progress);
+            localStorage.setItem(level, progress.toString());
         }
     }
 }
+export default LevelProgressManager;

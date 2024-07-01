@@ -51,6 +51,7 @@ class GeoDashScene extends Phaser.Scene
         if (this.input.keyboard == null)
             throw new Error("this.input.keyboard is null");
         this._levelBGM.play();
+        this.scene.launch('LevelProgress');
     }
     protected loadObjectsFromTilemap():void
     {
@@ -171,6 +172,10 @@ class GeoDashScene extends Phaser.Scene
             });
             particles.startFollow(this._cube,0, 32,true);
         }
+    }
+    public get cube(): Phaser.GameObjects.Sprite | Phaser.GameObjects.Container
+    {
+        return this._cube;
     }
 }
 export default GeoDashScene;
