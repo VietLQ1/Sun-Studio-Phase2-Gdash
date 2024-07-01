@@ -84,7 +84,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
             this.angle = 0;
             return;
         }
-        let angleRadians = Math.atan2(this.body.velocity.y/10, this.body.velocity.x);
+        let angleRadians = Math.atan2(this.body.velocity.y / 6, this.body.velocity.x);
         // Convert radians to degrees
         let angleDegrees = Phaser.Math.RadToDeg(angleRadians);
         this.angle = angleDegrees;

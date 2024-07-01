@@ -3,7 +3,7 @@ import LevelProgressManager from "../manager/LevelProgressManager";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 import GeoDashScene from "./GeoDashScene";
 
-class LevelProgress extends Phaser.Scene {
+class LevelProgressScene extends Phaser.Scene {
     private _levelProgress: number = 0;
     private _progressBar: Phaser.GameObjects.NineSlice;
     private _progressFill: Phaser.GameObjects.NineSlice;
@@ -27,4 +27,4 @@ class LevelProgress extends Phaser.Scene {
         this._progressText.setText('Coins: ' + LevelProgressManager.getInstance().getLevelProgress(scene.scene.key + 'coins'));
     }
 }
-export default LevelProgress;
+export default LevelProgressScene;
