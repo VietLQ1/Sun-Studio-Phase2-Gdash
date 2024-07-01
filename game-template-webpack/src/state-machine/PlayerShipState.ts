@@ -12,6 +12,7 @@ class PlayerShipState implements GeoDash.IPlayerState
     }
     public onEnter: () => void = () =>
     {
+        this.object.scene.cameras.main.zoomTo(0.75, 1000);
         let body = this.object.body as Phaser.Physics.Arcade.Body;
         console.log("PlayerShipState onEnter");
         this.object.setActive(true);
@@ -22,6 +23,7 @@ class PlayerShipState implements GeoDash.IPlayerState
     }
     public onExit: () => void = () =>
     {
+        this.object.scene.cameras.main.zoomTo(1, 1000);
         console.log("PlayerShipState onExit");
         PlayerBehaviorManager.instance.playerPosition = new Phaser.Math.Vector2(this.object.x, this.object.y);
         this.object.setActive(false);

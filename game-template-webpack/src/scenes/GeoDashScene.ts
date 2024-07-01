@@ -94,7 +94,7 @@ class GeoDashScene extends Phaser.Scene
                 else
                 {
                     this.physics.world.remove(cube.body);
-                    this._explode.play();
+                    this.playerDeath();
                     cube.setVisible(false);
                     cube.setActive(false);
                     this.inputHandler.detach(cube);
@@ -115,7 +115,7 @@ class GeoDashScene extends Phaser.Scene
                 else
                 {
                     this.physics.world.remove(cube.body);
-                    this._explode.play();
+                    this.playerDeath();
                     cube.setVisible(false);
                     cube.setActive(false);
                     this.inputHandler.detach(cube);
@@ -129,7 +129,7 @@ class GeoDashScene extends Phaser.Scene
             if (body.blocked.up && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideTop)
             {
                 this.physics.world.remove(cube.body);
-                this._explode.play();
+                this.playerDeath();
                 cube.setVisible(false);
                 cube.setActive(false);
                 this.inputHandler.detach(cube);
@@ -147,7 +147,7 @@ class GeoDashScene extends Phaser.Scene
         {
             this.physics.world.remove(cube.body);
             console.log("Cube hit spike");
-            this._explode.play();
+            this.playerDeath();
             cube.setVisible(false);
             cube.setActive(false);
             this.inputHandler.detach(cube);
@@ -197,6 +197,25 @@ class GeoDashScene extends Phaser.Scene
     public get cube(): Phaser.GameObjects.Sprite | Phaser.GameObjects.Container
     {
         return this._cube;
+    }
+    protected playerDeath(): void
+    {
+        this._explode.play();
+        let flame = this.add.particles(this._cube.x, this._cube.y, 'particle', {
+            color: [0xfacc22, 0xf89800, 0xf83600, 0x9f0404],
+            colorEase: 'quad.out',
+            lifespan: 500,
+            scale: { start: 0.70, end: 0, ease: 'sine.out' },
+            speed: 200,
+            advance: 500,
+            frequency: 50,
+            blendMode: 'ADD',
+            duration: 200,
+        });
+        flame.setDepth(1);
+        flame.once("complete", () => {
+            flame.destroy();
+        });
     }
 }
 export default GeoDashScene;
