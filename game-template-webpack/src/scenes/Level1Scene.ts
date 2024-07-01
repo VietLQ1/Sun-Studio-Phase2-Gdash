@@ -24,7 +24,22 @@ class Level1Scene extends GeoDashScene
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
         this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
     }
-    
+    protected createLevelMap(): void {
+        this.map = this.make.tilemap({ key: 'lv1' });
+        this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
+        if (this.map == null)
+            throw new Error("this.map is null");
+        if (this.tiles == null)
+            throw new Error("this.tiles is null");
+        this.bg = this.map.createLayer('backgroundLayer', this.map.addTilesetImage('bg', 'bg')!);
+        this.bg?.setName("backgroundLayer");
+        this.tweenBG();
+        this.layer = this.map.createLayer('foregroundLayer', this.tiles);
+        this.layer?.setName("foregroundLayer");
+        this.layer!.setCollisionByProperty({ collide: true });
+        this._spikes = this.add.group({ runChildUpdate: true });
+        this._portal = this.add.group({ runChildUpdate: true });
+    }
     public update(time: number, delta: number): void {
         super.update(time, delta);
         this._cube.update();
