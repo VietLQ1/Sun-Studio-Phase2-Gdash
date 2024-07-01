@@ -51,7 +51,6 @@ class Level1Scene extends GeoDashScene
         PlayerBehaviorManager.instance.init(this);
         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
         this.cameras.main.startFollow(this._cube, true);
-        // this._cube = new PlayerShip(this, 0, 400);
         if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
         {
             this._cube.body.setCollideWorldBounds(true);
@@ -68,7 +67,6 @@ class Level1Scene extends GeoDashScene
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);
-        //this.physics.world.collide(this._cube, this.layer!);
         this._cube.update();
     }
     private loadObjectsFromTilemap():void
@@ -95,9 +93,9 @@ class Level1Scene extends GeoDashScene
             let body = cube.body as Phaser.Physics.Arcade.Body;
             if (body.blocked.right && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideRight)
             {
-                if (tile.properties.isPlatform)
+                if (tile.properties.isPlatform && body.position.y < tile.pixelY)
                 {
-                    console.log("Cube hit right");
+                    console.log(body.position.y, tile.pixelY);
                     body.setVelocityY(-200);
                 }
                 else
