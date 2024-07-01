@@ -39,6 +39,7 @@ class Level1Scene extends GeoDashScene
         this.layer!.setCollisionByProperty({ collide: true });
         this._spikes = this.add.group({ runChildUpdate: true });
         this._portal = this.add.group({ runChildUpdate: true });
+        this._collectibles = this.add.group({ runChildUpdate: true });
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);

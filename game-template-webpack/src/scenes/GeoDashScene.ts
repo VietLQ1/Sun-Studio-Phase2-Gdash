@@ -1,3 +1,4 @@
+import Coin from "../game-object/Coin";
 import Portal from "../game-object/Portal";
 import Spikes from "../game-object/Spikes";
 import InputHandler from "../input/InputHandler";
@@ -52,6 +53,7 @@ class GeoDashScene extends Phaser.Scene
             throw new Error("this.input.keyboard is null");
         this._levelBGM.play();
         this.scene.launch('LevelProgress');
+        //this._collectibles.add(new Coin(this, 100, 1000));
     }
     protected loadObjectsFromTilemap():void
     {
@@ -66,6 +68,10 @@ class GeoDashScene extends Phaser.Scene
             {
                 let nextState = object.properties.find((property: any) => property.name === "nextState")?.value;
                 this._portal.add(new Portal(this, object.x!, object.y!, object.width!, object.height!, nextState)).setName(object.name);
+            }
+            if (object.type == "coin")
+            {
+                this._collectibles.add(new Coin(this, object.x!, object.y!)).setName(object.name);
             }
         });
     }

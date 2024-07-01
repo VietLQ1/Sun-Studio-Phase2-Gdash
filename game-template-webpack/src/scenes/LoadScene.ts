@@ -22,6 +22,10 @@ class LoadScene extends Phaser.Scene
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
         this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
         this.load.audio('explode', 'assets/sounds/explode.ogg');
+        this.load.image('coin1','assets/images/coin-sheet/secretCoin_01.png');
+        this.load.image('coin2','assets/images/coin-sheet/secretCoin_02.png');
+        this.load.image('coin3','assets/images/coin-sheet/secretCoin_03.png');
+        this.load.image('coin4','assets/images/coin-sheet/secretCoin_04.png');
     }
     public update(time: number, delta: number): void
     {
