@@ -23,6 +23,7 @@ class Level1Scene extends GeoDashScene
         this.physics.add.collider(this._spikes, this.layer!);
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
         this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
+        this.physics.add.overlap(this._cube, this._collectibles, this.overlapCollectible, undefined, this);
     }
     protected createLevelMap(): void {
         this.map = this.make.tilemap({ key: 'lv1' });

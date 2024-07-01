@@ -2,6 +2,7 @@ import Coin from "../game-object/Coin";
 import Portal from "../game-object/Portal";
 import Spikes from "../game-object/Spikes";
 import InputHandler from "../input/InputHandler";
+import LevelProgressManager from "../manager/LevelProgressManager";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 
 class GeoDashScene extends Phaser.Scene
@@ -9,6 +10,7 @@ class GeoDashScene extends Phaser.Scene
     protected _cube : Phaser.GameObjects.Sprite | Phaser.GameObjects.Container;
     protected _spikes : Phaser.GameObjects.Group;
     protected _collectibles : Phaser.GameObjects.Group;
+    protected _collectibleCount : number;
     protected _portal : Phaser.GameObjects.Group;
     protected _trigger : Phaser.GameObjects.Group;
     protected _levelBGM : Phaser.Sound.WebAudioSound;
@@ -57,6 +59,7 @@ class GeoDashScene extends Phaser.Scene
     }
     protected loadObjectsFromTilemap():void
     {
+        this._collectibleCount = 0;
         const objects = this.map.getObjectLayer('object Layer')!.objects as any[];
         objects.forEach((object) => {
             if (object.type == "spike")
@@ -83,7 +86,7 @@ class GeoDashScene extends Phaser.Scene
             let body = cube.body as Phaser.Physics.Arcade.Body;
             if (body.blocked.right && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideRight)
             {
-                if (tile.properties.isPlatform && body.position.y < tile.pixelY)
+                if (tile.properties.isPlatform && body.position.y < tile.pixelY - 32)
                 {
                     console.log(body.position.y, tile.pixelY);
                     body.setVelocityY(-200);
@@ -166,6 +169,7 @@ class GeoDashScene extends Phaser.Scene
             this.physics.add.collider(this._cube, this.layer!, this.handleMapCollision, undefined, this);
             this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
             this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
+            this.physics.add.overlap(this._cube, this._collectibles, this.overlapCollectible, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 this._cube.body.setCollideWorldBounds(true);
@@ -177,6 +181,17 @@ class GeoDashScene extends Phaser.Scene
                 blendMode: 'ADD'
             });
             particles.startFollow(this._cube,0, 32,true);
+        }
+    }
+    protected overlapCollectible(cube: any, collectible: any): void
+    {
+        if (cube === this._cube)
+        {
+            let coin = collectible as Coin;
+            this.physics.world.disable(collectible);
+            this._collectibleCount++;
+            collectible.setVisible(false);
+            LevelProgressManager.getInstance().setLevelProgress(this.scene.key + 'coins', this._collectibleCount);
         }
     }
     public get cube(): Phaser.GameObjects.Sprite | Phaser.GameObjects.Container
