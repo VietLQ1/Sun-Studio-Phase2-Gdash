@@ -38,6 +38,7 @@ class GeoDashScene extends Phaser.Scene
     {
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.physics.world.setFPS(144);
         PlayerBehaviorManager.instance.init(this);
         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
         //console.log(PlayerBehaviorManager.instance.currentScene);
@@ -97,6 +98,10 @@ class GeoDashScene extends Phaser.Scene
                     console.log(body.position.y, tile.pixelY);
                     body.setVelocityY(-200);
                 }
+                else if(tile.properties.isPlatform && body.position.y >= tile.pixelY)
+                {
+                    
+                }
                 else
                 {
                     this.physics.world.remove(cube.body);
@@ -111,12 +116,16 @@ class GeoDashScene extends Phaser.Scene
                     });
                 }
             }
-            if (body.blocked.left && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideLeft)
+            else if (body.blocked.left && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideLeft)
             {
-                if (tile.properties.isPlatform)
+                if (tile.properties.isPlatform && body.position.y < tile.pixelY - 32)
                 {
                     console.log("Cube hit left");
-                    body.setVelocityY(-910);
+                    body.setVelocityY(-200);
+                }
+                else if (tile.properties.isPlatform && body.position.y >= tile.pixelY)
+                {
+
                 }
                 else
                 {
@@ -132,18 +141,25 @@ class GeoDashScene extends Phaser.Scene
                     });
                 }
             }
-            if (body.blocked.up && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideTop)
+            else if (body.blocked.up && !PlayerBehaviorManager.instance.stateMachine.currentState.playerRule.collideTop)
             {
-                this.physics.world.remove(cube.body);
-                this.playerDeath();
-                cube.setVisible(false);
-                cube.setActive(false);
-                this.inputHandler.detach(cube);
-                this.cameras.main.stopFollow();
-                this._levelBGM.stopAndRemoveBufferSource();
-                this.time.delayedCall(1000, () => {
-                    this.scene.restart();
-                });
+                if (tile.properties.isPlatform && body.position.y >= tile.pixelX)
+                {
+
+                }
+                else
+                {
+                    this.physics.world.remove(cube.body);
+                    this.playerDeath();
+                    cube.setVisible(false);
+                    cube.setActive(false);
+                    this.inputHandler.detach(cube);
+                    this.cameras.main.stopFollow();
+                    this._levelBGM.stopAndRemoveBufferSource();
+                    this.time.delayedCall(1000, () => {
+                        this.scene.restart();
+                    });
+                }
             }
         }
     }
@@ -179,6 +195,7 @@ class GeoDashScene extends Phaser.Scene
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 this._cube.body.setCollideWorldBounds(true);
+                this._cube.body.setGravity(0);
             }
             this.cameras.main.startFollow(this._cube, true);
             const particles = this.add.particles(0, 0, 'particle', {
@@ -208,6 +225,7 @@ class GeoDashScene extends Phaser.Scene
             if (trigger instanceof JumpPad)
             {
                 body.setVelocityY(trigger.jumpForce);
+                // body.setGravityY(-3050);
                 this.physics.world.disable(trigger);
             }
         }
