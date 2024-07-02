@@ -27,6 +27,7 @@ class LoadScene extends Phaser.Scene
         this.load.image('coin1','assets/images/coin-sheet/secretCoin_01.png');
         this.load.image('coin2','assets/images/coin-sheet/secretCoin_02.png');
         this.load.image('coin3','assets/images/coin-sheet/secretCoin_03.png');
+        this.load.image('bump', 'assets/images/jump-pad/bump.png')
         this.load.image('coin4','assets/images/coin-sheet/secretCoin_04.png');
         this.load.image('lv1Btn', 'assets/images/levels/lv1.png');
         this.load.image('lv2Btn', 'assets/images/levels/lv2.png');

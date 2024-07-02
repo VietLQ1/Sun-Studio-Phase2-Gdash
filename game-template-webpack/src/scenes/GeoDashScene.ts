@@ -1,4 +1,5 @@
 import Coin from "../game-object/Coin";
+import JumpPad from "../game-object/JumpPad";
 import Portal from "../game-object/Portal";
 import Spikes from "../game-object/Spikes";
 import InputHandler from "../input/InputHandler";
@@ -75,6 +76,10 @@ class GeoDashScene extends Phaser.Scene
             if (object.type == "coin")
             {
                 this._collectibles.add(new Coin(this, object.x!, object.y!)).setName(object.name);
+            }
+            if (object.type == "jumpPad")
+            {
+                this._trigger.add(new JumpPad(this, object.x!, object.y!, object.width!, object.height!, -1300)).setName(object.name);
             }
         });
     }
@@ -192,6 +197,18 @@ class GeoDashScene extends Phaser.Scene
             this._collectibleCount++;
             collectible.setVisible(false);
             LevelProgressManager.getInstance().setLevelProgress(this.scene.key + 'coins', this._collectibleCount);
+        }
+    }
+    protected handleTriggerCollision(cube: any, trigger: any): void
+    {
+        if (cube === this._cube)
+        {
+            let body = cube.body as Phaser.Physics.Arcade.Body;
+            if (trigger instanceof JumpPad)
+            {
+                body.setVelocityY(trigger.jumpForce);
+                this.physics.world.disable(trigger);
+            }
         }
     }
     public get cube(): Phaser.GameObjects.Sprite | Phaser.GameObjects.Container
