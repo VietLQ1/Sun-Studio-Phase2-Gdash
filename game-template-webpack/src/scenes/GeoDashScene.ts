@@ -252,6 +252,7 @@ class GeoDashScene extends Phaser.Scene
                     onComplete: () => {
                         this.scene.stop();
                         this.scene.stop("LevelProgress");
+                        this.scene.launch("LevelComplete");
                     }
                 });
                 // this.time.delayedCall(4000, () => {
