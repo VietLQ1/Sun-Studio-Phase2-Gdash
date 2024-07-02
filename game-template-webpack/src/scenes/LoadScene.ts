@@ -19,8 +19,10 @@ class LoadScene extends Phaser.Scene
         this.load.image('ship', 'assets/images/ship.png');
         this.load.image('particle', 'assets/images/particle_001.png')
         this.load.tilemapTiledJSON('lv1', 'assets/tilemaps/stereo-madness.json');
+        this.load.tilemapTiledJSON('lv2', 'assets/tilemaps/back-on-track.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
         this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
+        this.load.audio('BackOnTrack', 'assets/sounds/BackOnTrack.mp3');
         this.load.audio('explode', 'assets/sounds/explode.ogg');
         this.load.image('coin1','assets/images/coin-sheet/secretCoin_01.png');
         this.load.image('coin2','assets/images/coin-sheet/secretCoin_02.png');

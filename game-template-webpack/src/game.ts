@@ -4,12 +4,13 @@ import MenuScene from "./scenes/MenuScene";
 import BootScene from "./scenes/BootScene";
 import LoadScene from "./scenes/LoadScene";
 import LevelProgressScene from "./scenes/LevelProgressScene";
+import Level2Scene from "./scenes/Level2Scene";
 
     const config : Phaser.Types.Core.GameConfig = {
         type: Phaser.AUTO,
         width: 1536,
         height: 776,
-        scene: [BootScene,LoadScene, MenuScene, Level1Scene, LevelProgressScene],
+        scene: [BootScene,LoadScene, MenuScene, Level1Scene, Level2Scene, LevelProgressScene],
         physics: {
             default: 'arcade',
             arcade: {
