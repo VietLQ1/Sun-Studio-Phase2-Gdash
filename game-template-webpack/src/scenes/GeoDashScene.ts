@@ -226,6 +226,13 @@ class GeoDashScene extends Phaser.Scene
         this.scene.resume();
         this._levelBGM.resume();
     }
+    public stop(): void
+    {
+        this.scene.stop();
+        this.scene.stop("UI");
+        this.scene.stop("LevelProgress");
+        this._levelBGM.stopAndRemoveBufferSource();
+    }
     protected playerDeath(): void
     {
         this._explode.play();

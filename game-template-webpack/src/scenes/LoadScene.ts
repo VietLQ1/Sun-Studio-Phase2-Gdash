@@ -33,6 +33,8 @@ class LoadScene extends Phaser.Scene
         this.load.image('lv2Btn', 'assets/images/levels/lv2.png');
         this.load.image('lv3Btn', 'assets/images/levels/lv3.png');
         this.load.image('pauseBtn', 'assets/images/pauseBtn.png');
+        this.load.image('resumeBtn', 'assets/images/resumeBtn.png');
+        this.load.image('menuBtn', 'assets/images/menuBtn.png');
     }
     public update(time: number, delta: number): void
     {
