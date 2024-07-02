@@ -15,7 +15,7 @@ class LevelProgressScene extends Phaser.Scene {
     public create() {
         this._progressFill = this.add.nineslice(this.game.renderer.width / 4 + 5, 25, 'progressFill', 0, 845).setOrigin(0, 0.5);
         this._progressBar = this.add.nineslice(this.game.renderer.width / 4, 25, 'progressBar', 0, 850).setOrigin(0, 0.5);
-        this._progressText = this.add.text(this.game.renderer.width, 0, 'Coins: 0', { fontSize: '50px', color: '#FFD700' }).setOrigin(1, 0);
+        this._progressText = this.add.text(0, 0, 'Coins: 0', { fontSize: '50px', color: '#FFD700' }).setOrigin(0, 0);
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);

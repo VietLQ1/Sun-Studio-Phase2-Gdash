@@ -56,6 +56,7 @@ class GeoDashScene extends Phaser.Scene
             throw new Error("this.input.keyboard is null");
         this._levelBGM.play();
         this.scene.launch('LevelProgress');
+        this.scene.launch('UI');
         //this._collectibles.add(new Coin(this, 100, 1000));
     }
     protected loadObjectsFromTilemap():void
