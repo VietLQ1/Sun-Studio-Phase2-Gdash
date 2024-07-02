@@ -2,11 +2,11 @@
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 import GeoDashScene from "./GeoDashScene";
 
-class Level1Scene extends GeoDashScene
+class Level3Scene extends GeoDashScene
 {
     constructor ()
     {
-        super('Level1');
+        super('Level3');
     }
     public preload () : void
     {
@@ -15,7 +15,7 @@ class Level1Scene extends GeoDashScene
     public create () : void
     {
         super.create();
-        this._levelBGM = this.sound.add('StereoMadness', { loop: false }) as Phaser.Sound.WebAudioSound;
+        this._levelBGM = this.sound.add('BackOnTrack', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.createLevelMap();
         this.initailize();
         this.loadObjectsFromTilemap();
@@ -27,7 +27,7 @@ class Level1Scene extends GeoDashScene
         this.physics.add.collider(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
     }
     protected createLevelMap(): void {
-        this.map = this.make.tilemap({ key: 'lv1' });
+        this.map = this.make.tilemap({ key: 'lv2' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
             throw new Error("this.map is null");
@@ -50,8 +50,8 @@ class Level1Scene extends GeoDashScene
     }
     protected tweenBG(): void
     {
-        const firstColor = Phaser.Display.Color.ValueToColor(0x0000ff);
-        const secondColor = Phaser.Display.Color.ValueToColor(0xf220ff);
+        const firstColor = Phaser.Display.Color.ValueToColor(0xf220ff);
+        const secondColor = Phaser.Display.Color.ValueToColor(0x0000ff);
         this.tweens.addCounter({
             from: 0,
             to: 100,
@@ -68,4 +68,4 @@ class Level1Scene extends GeoDashScene
 
     }
 }
-export default Level1Scene;
+export default Level3Scene;

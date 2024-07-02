@@ -956,6 +956,17 @@
                  "width":0,
                  "x":32224,
                  "y":640
+                }, 
+                {
+                 "height":1024,
+                 "id":116,
+                 "name":"endpoint",
+                 "rotation":0,
+                 "type":"endpoint",
+                 "visible":true,
+                 "width":64,
+                 "x":34752,
+                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -964,7 +975,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":116,
+ "nextobjectid":117,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

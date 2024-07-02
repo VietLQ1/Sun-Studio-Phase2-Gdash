@@ -24,6 +24,7 @@ class LoadScene extends Phaser.Scene
         this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
         this.load.audio('BackOnTrack', 'assets/sounds/BackOnTrack.mp3');
         this.load.audio('explode', ['assets/sounds/explode.ogg', 'assets/sounds/explode.mp3']);
+        this.load.audio('levelComplete', ['assets/sounds/LevelComplete.ogg','assets/sounds/LevelComplete.mp3']);
         this.load.image('coin1','assets/images/coin-sheet/secretCoin_01.png');
         this.load.image('coin2','assets/images/coin-sheet/secretCoin_02.png');
         this.load.image('coin3','assets/images/coin-sheet/secretCoin_03.png');

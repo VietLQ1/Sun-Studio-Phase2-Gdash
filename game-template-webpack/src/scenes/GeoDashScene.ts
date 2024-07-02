@@ -1,5 +1,6 @@
 import Coin from "../game-object/Coin";
 import JumpPad from "../game-object/JumpPad";
+import LevelEndPoint from "../game-object/LevelEndPoint";
 import Portal from "../game-object/Portal";
 import Spikes from "../game-object/Spikes";
 import InputHandler from "../input/InputHandler";
@@ -82,6 +83,12 @@ class GeoDashScene extends Phaser.Scene
             if (object.type == "jumpPad")
             {
                 this._trigger.add(new JumpPad(this, object.x!, object.y!, object.width!, object.height!, -1300)).setName(object.name);
+            }
+            if (object.type == "endpoint")
+            {
+                console.log(object.x, object.y, object.width, object.height)
+                this._trigger.add(new LevelEndPoint(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
+                //this._trigger.add(new LevelEndPoint(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
             }
         });
     }
@@ -192,6 +199,7 @@ class GeoDashScene extends Phaser.Scene
             this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
             this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
             this.physics.add.overlap(this._cube, this._collectibles, this.overlapCollectible, undefined, this);
+            this.physics.add.collider(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 this._cube.body.setCollideWorldBounds(true);
@@ -227,6 +235,30 @@ class GeoDashScene extends Phaser.Scene
                 body.setVelocityY(trigger.jumpForce);
                 // body.setGravityY(-3050);
                 this.physics.world.disable(trigger);
+            }
+            else if (trigger instanceof LevelEndPoint)
+            {
+                this.physics.world.disable(trigger);
+                this.scene.stop("UI");
+                this._levelBGM.stopAndRemoveBufferSource();
+                this.sound.play('levelComplete', { loop: false });
+                this.tweens.add({
+                    targets: cube,
+                    x: this.map.widthInPixels,
+                    y: this.game.renderer.height / 2,
+                    scale: 0,
+                    duration: 4000,
+                    ease: 'Back.inOut',
+                    onComplete: () => {
+                        this.scene.stop();
+                        this.scene.stop("LevelProgress");
+                    }
+                });
+                // this.time.delayedCall(4000, () => {
+                //     this.scene.stop();
+                //     this.scene.stop("LevelProgress");
+                // });
+                //this.scene.launch("LevelComplete");
             }
         }
     }
