@@ -216,6 +216,16 @@ class GeoDashScene extends Phaser.Scene
     {
         return this._cube;
     }
+    public pause(): void
+    {
+        this.scene.pause();
+        this._levelBGM.pause();
+    }
+    public resume(): void
+    {
+        this.scene.resume();
+        this._levelBGM.resume();
+    }
     protected playerDeath(): void
     {
         this._explode.play();
@@ -234,6 +244,7 @@ class GeoDashScene extends Phaser.Scene
         flame.once("complete", () => {
             flame.destroy();
         });
+        this.scene.pause("UI");
     }
 }
 export default GeoDashScene;
