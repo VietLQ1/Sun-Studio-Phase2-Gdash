@@ -303,6 +303,13 @@ class GeoDashScene extends Phaser.Scene
     {
         return this._cube;
     }
+    public update(time: number, delta: number): void {
+        super.update(time, delta);
+        if (this._levelState === LevelState.PLAYING)
+        {
+            PlayerBehaviorManager.instance.update();
+        }
+    }
     public pause(): void
     {
         this._levelState = LevelState.PAUSED;

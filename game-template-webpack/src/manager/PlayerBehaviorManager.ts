@@ -34,6 +34,7 @@ class PlayerBehaviorManager {
     }
     public update(): void {
         this._stateMachine.currentState.update();
+        console.log(this._playerPosition);
     }
     public get stateMachine(): PlayerStateMachine {
         return this._stateMachine;

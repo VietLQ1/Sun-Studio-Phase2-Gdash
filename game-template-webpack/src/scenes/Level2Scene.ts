@@ -44,10 +44,6 @@ class Level2Scene extends GeoDashScene
         this._collectibles = this.add.group({ runChildUpdate: true });
         this._trigger = this.add.group({ runChildUpdate: true });
     }
-    public update(time: number, delta: number): void {
-        super.update(time, delta);
-        this._cube.update();
-    }
     protected tweenBG(): void
     {
         const firstColor = Phaser.Display.Color.ValueToColor(0xf220ff);

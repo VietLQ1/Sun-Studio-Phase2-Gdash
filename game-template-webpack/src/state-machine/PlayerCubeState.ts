@@ -35,6 +35,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
     public update(): void
     {
         this.object.update();
+        PlayerBehaviorManager.instance.playerPosition = new Phaser.Math.Vector2(this.object.x, this.object.y);
     }
 }
 export default PlayerCubeState;
