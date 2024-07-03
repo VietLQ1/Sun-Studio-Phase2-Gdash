@@ -8,8 +8,10 @@ import InputHandler from "../input/InputHandler";
 import LevelProgressManager from "../manager/LevelProgressManager";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 
+enum LevelState {PLAYING, PAUSED, COMPLETED, FAILED};
 class GeoDashScene extends Phaser.Scene
 {
+    protected _levelState: LevelState;
     protected _cube : Phaser.GameObjects.Sprite | Phaser.GameObjects.Container;
     protected _spikes : Phaser.GameObjects.Group;
     protected _collectibles : Phaser.GameObjects.Group;
@@ -38,6 +40,7 @@ class GeoDashScene extends Phaser.Scene
     }
     protected initailize(): void
     {
+        this._levelState = LevelState.PLAYING;
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setFPS(144);
@@ -57,7 +60,10 @@ class GeoDashScene extends Phaser.Scene
         particles.startFollow(this._cube,0, 32,true);
         if (this.input.keyboard == null)
             throw new Error("this.input.keyboard is null");
-        this._levelBGM.play();
+        if (!this._levelBGM.isPlaying)
+        {
+            this._levelBGM.play();   
+        }
         this.scene.launch('LevelProgress');
         this.scene.launch('UI');
         //this._collectibles.add(new Coin(this, 100, 1000));
@@ -116,6 +122,11 @@ class GeoDashScene extends Phaser.Scene
                 }
                 else
                 {
+                    if (this._levelState === LevelState.COMPLETED || this._levelState === LevelState.FAILED)
+                    {
+                        return;
+                    }
+                    this._levelState = LevelState.FAILED;
                     this.physics.world.remove(cube.body);
                     this.playerDeath();
                     cube.setVisible(false);
@@ -141,6 +152,11 @@ class GeoDashScene extends Phaser.Scene
                 }
                 else
                 {
+                    if (this._levelState === LevelState.COMPLETED || this._levelState === LevelState.FAILED)
+                    {
+                        return;
+                    }
+                    this._levelState = LevelState.FAILED;
                     this.physics.world.remove(cube.body);
                     this.playerDeath();
                     cube.setVisible(false);
@@ -161,6 +177,11 @@ class GeoDashScene extends Phaser.Scene
                 }
                 else
                 {
+                    if (this._levelState === LevelState.COMPLETED || this._levelState === LevelState.FAILED)
+                    {
+                        return;
+                    }
+                    this._levelState = LevelState.FAILED;
                     this.physics.world.remove(cube.body);
                     this.playerDeath();
                     cube.setVisible(false);
@@ -179,6 +200,11 @@ class GeoDashScene extends Phaser.Scene
     {
         if (cube === this._cube)
         {
+            if (this._levelState === LevelState.COMPLETED || this._levelState === LevelState.FAILED)
+            {
+                return;
+            }
+            this._levelState = LevelState.FAILED;
             this.physics.world.remove(cube.body);
             console.log("Cube hit spike");
             this.playerDeath();
@@ -247,6 +273,7 @@ class GeoDashScene extends Phaser.Scene
             }
             else if (trigger instanceof LevelEndPoint)
             {
+                this._levelState = LevelState.COMPLETED;
                 this.physics.world.disable(trigger);
                 this.scene.stop("UI");
                 this._levelBGM.stopAndRemoveBufferSource();
@@ -278,11 +305,13 @@ class GeoDashScene extends Phaser.Scene
     }
     public pause(): void
     {
+        this._levelState = LevelState.PAUSED;
         this.scene.pause();
         this._levelBGM.pause();
     }
     public resume(): void
     {
+        this._levelState = LevelState.PLAYING;
         this.scene.resume();
         this._levelBGM.resume();
     }
