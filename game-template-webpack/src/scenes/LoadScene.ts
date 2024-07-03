@@ -20,9 +20,12 @@ class LoadScene extends Phaser.Scene
         this.load.image('particle', 'assets/images/particle_001.png')
         this.load.tilemapTiledJSON('lv1', 'assets/tilemaps/stereo-madness.json');
         this.load.tilemapTiledJSON('lv2', 'assets/tilemaps/back-on-track.json');
+        this.load.tilemapTiledJSON('lv3', 'assets/tilemaps/polargeist.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
+        this.load.audio('menuLoop', 'assets/sounds/menuLoop.mp3')
         this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
         this.load.audio('BackOnTrack', 'assets/sounds/BackOnTrack.mp3');
+        this.load.audio('Polargeist', 'assets/sounds/Polargeist.mp3');
         this.load.audio('explode', ['assets/sounds/explode.ogg', 'assets/sounds/explode.mp3']);
         this.load.audio('levelComplete', ['assets/sounds/LevelComplete.ogg','assets/sounds/LevelComplete.mp3']);
         this.load.image('coin1','assets/images/coin-sheet/secretCoin_01.png');
@@ -30,6 +33,7 @@ class LoadScene extends Phaser.Scene
         this.load.image('coin3','assets/images/coin-sheet/secretCoin_03.png');
         this.load.image('bump', 'assets/images/jump-pad/bump.png')
         this.load.image('gravBump', 'assets/images/jump-pad/gravbump.png')
+        this.load.image('ring', 'assets/images/jump-orb/ring.png');
         this.load.image('coin4','assets/images/coin-sheet/secretCoin_04.png');
         this.load.image('lv1Btn', 'assets/images/levels/lv1.png');
         this.load.image('lv2Btn', 'assets/images/levels/lv2.png');

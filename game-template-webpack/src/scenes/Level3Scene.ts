@@ -15,7 +15,7 @@ class Level3Scene extends GeoDashScene
     public create () : void
     {
         super.create();
-        this._levelBGM = this.sound.add('BackOnTrack', { loop: false }) as Phaser.Sound.WebAudioSound;
+        this._levelBGM = this.sound.add('Polargeist', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.createLevelMap();
         this.initailize();
         this.loadObjectsFromTilemap();
@@ -24,10 +24,10 @@ class Level3Scene extends GeoDashScene
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);
         this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
         this.physics.add.overlap(this._cube, this._collectibles, this.overlapCollectible, undefined, this);
-        this.physics.add.collider(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
+        this.physics.add.overlap(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
     }
     protected createLevelMap(): void {
-        this.map = this.make.tilemap({ key: 'lv2' });
+        this.map = this.make.tilemap({ key: 'lv3' });
         this.tiles = this.map.addTilesetImage('levelTiles', 'tiles');
         if (this.map == null)
             throw new Error("this.map is null");
@@ -46,8 +46,8 @@ class Level3Scene extends GeoDashScene
     }
     protected tweenBG(): void
     {
-        const firstColor = Phaser.Display.Color.ValueToColor(0xf220ff);
-        const secondColor = Phaser.Display.Color.ValueToColor(0x0000ff);
+        const firstColor = Phaser.Display.Color.ValueToColor(0x006400);
+        const secondColor = Phaser.Display.Color.ValueToColor(0x40e0d0);
         this.tweens.addCounter({
             from: 0,
             to: 100,

@@ -1,5 +1,6 @@
 import Coin from "../game-object/Coin";
 import GravityPad from "../game-object/GravityPad";
+import JumpOrb from "../game-object/JumpOrb";
 import JumpPad from "../game-object/JumpPad";
 import LevelEndPoint from "../game-object/LevelEndPoint";
 import Portal from "../game-object/Portal";
@@ -94,6 +95,10 @@ class GeoDashScene extends Phaser.Scene
             if (object.type == "gravPad")
             {
                 this._trigger.add(new GravityPad(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
+            }
+            if (object.type == "jumpOrb")
+            {
+                this._trigger.add(new JumpOrb(this, object.x!, object.y!, object.width!, object.height!, -1100)).setName(object.name);
             }
             if (object.type == "endpoint")
             {
@@ -230,7 +235,7 @@ class GeoDashScene extends Phaser.Scene
             this.physics.add.collider(this._cube, this._spikes, this.handleCubeSpikeCollision, undefined, this);
             this.physics.add.overlap(this._cube, this._portal, this.overlapPortal, undefined, this);
             this.physics.add.overlap(this._cube, this._collectibles, this.overlapCollectible, undefined, this);
-            this.physics.add.collider(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
+            this.physics.add.overlap(this._cube, this._trigger, this.handleTriggerCollision, undefined, this);
             if (this._cube.body instanceof Phaser.Physics.Arcade.Body)
             {
                 this._cube.body.setCollideWorldBounds(true);
@@ -269,7 +274,14 @@ class GeoDashScene extends Phaser.Scene
             }
             else if (trigger instanceof GravityPad)
             {
-                body.setGravityY(-5000);
+                body.setGravityY(-7000);
+            }
+            else if (trigger instanceof JumpOrb)
+            {
+                if (this.input.keyboard?.keys[Phaser.Input.Keyboard.KeyCodes.SPACE].isDown)
+                {
+                    body.setVelocityY(trigger.jumpForce);
+                }
             }
             else if (trigger instanceof LevelEndPoint)
             {
