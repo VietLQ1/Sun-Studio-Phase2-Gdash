@@ -13,7 +13,7 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
         scene.physics.add.existing(this);
         scene.physics.world.enable(this);
         // Set player properties
-        this.speedX = 395; // Adjust as needed for game speed
+        this.speedX = 392; // Adjust as needed for game speed
 
         // Initialize jump key
         if (scene.input.keyboard == null)
