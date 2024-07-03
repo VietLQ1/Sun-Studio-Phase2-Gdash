@@ -1,4 +1,5 @@
 import Coin from "../game-object/Coin";
+import GravityPad from "../game-object/GravityPad";
 import JumpPad from "../game-object/JumpPad";
 import LevelEndPoint from "../game-object/LevelEndPoint";
 import Portal from "../game-object/Portal";
@@ -83,6 +84,10 @@ class GeoDashScene extends Phaser.Scene
             if (object.type == "jumpPad")
             {
                 this._trigger.add(new JumpPad(this, object.x!, object.y!, object.width!, object.height!, -1300)).setName(object.name);
+            }
+            if (object.type == "gravPad")
+            {
+                this._trigger.add(new GravityPad(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
             }
             if (object.type == "endpoint")
             {
@@ -230,11 +235,15 @@ class GeoDashScene extends Phaser.Scene
         if (cube === this._cube)
         {
             let body = cube.body as Phaser.Physics.Arcade.Body;
-            if (trigger instanceof JumpPad)
+            if (trigger instanceof JumpPad && !(trigger instanceof GravityPad))
             {
                 body.setVelocityY(trigger.jumpForce);
                 // body.setGravityY(-3050);
                 this.physics.world.disable(trigger);
+            }
+            else if (trigger instanceof GravityPad)
+            {
+                body.setGravityY(-5000);
             }
             else if (trigger instanceof LevelEndPoint)
             {
