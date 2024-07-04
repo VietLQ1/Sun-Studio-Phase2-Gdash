@@ -18,7 +18,7 @@ import LevelCompleteScene from "./scenes/LevelCompleteScene";
             default: 'arcade',
             arcade: {
                 gravity: {x:0, y: 3050 },
-                debug: true
+                //debug: true
             }
         },
         scale: {
