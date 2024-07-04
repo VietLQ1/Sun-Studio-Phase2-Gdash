@@ -17,8 +17,8 @@ class Level2Scene extends GeoDashScene
         super.create();
         this._levelBGM = this.sound.add('BackOnTrack', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.createLevelMap();
-        this.initailize();
         this.loadObjectsFromTilemap();
+        this.initialize();
         this.physics.add.collider(this._cube, this.layer!, this.handleMapCollision, undefined, this);
         this.physics.add.collider(this._spikes, this.layer!);
         this.physics.add.collider(this._cube, this._spikes,this.handleCubeSpikeCollision, undefined, this);

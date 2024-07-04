@@ -11,7 +11,7 @@
          "name":"backgroundLayer",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":560,
          "x":0,
          "y":0
@@ -1093,6 +1093,17 @@
                  "width":32,
                  "x":32465,
                  "y":913.666666666667
+                }, 
+                {
+                 "height":64,
+                 "id":275,
+                 "name":"spawn",
+                 "rotation":0,
+                 "type":"spawn",
+                 "visible":true,
+                 "width":64,
+                 "x":0,
+                 "y":1000
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1101,7 +1112,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":275,
+ "nextobjectid":276,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

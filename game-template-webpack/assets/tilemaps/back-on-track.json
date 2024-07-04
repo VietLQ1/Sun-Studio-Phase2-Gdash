@@ -1064,6 +1064,17 @@
                  "width":64,
                  "x":32128,
                  "y":1008
+                }, 
+                {
+                 "height":64,
+                 "id":267,
+                 "name":"spawn",
+                 "rotation":0,
+                 "type":"spawn",
+                 "visible":true,
+                 "width":64,
+                 "x":0,
+                 "y":1000
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1072,7 +1083,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":267,
+ "nextobjectid":268,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

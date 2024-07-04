@@ -22,6 +22,7 @@ class GeoDashScene extends Phaser.Scene
     protected _trigger : Phaser.GameObjects.Group;
     protected _levelBGM : Phaser.Sound.WebAudioSound;
     protected _explode : Phaser.Sound.WebAudioSound;
+    protected _spawnPoint : Phaser.Math.Vector2;
     public map : Phaser.Tilemaps.Tilemap;
     public tiles : Phaser.Tilemaps.Tileset | null;
     public layer : Phaser.Tilemaps.TilemapLayer | null;
@@ -35,18 +36,19 @@ class GeoDashScene extends Phaser.Scene
     {
         this._explode = this.sound.add('explode', { loop: false }) as Phaser.Sound.WebAudioSound;
         this.inputHandler = new InputHandler(this);
+        this._spawnPoint = new Phaser.Math.Vector2(0, 1000);
     }
     protected tweenBG(): void{}
     protected createLevelMap(): void
     {
     }
-    protected initailize(): void
+    protected initialize(): void
     {
         this._levelState = LevelState.PLAYING;
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setFPS(144);
-        PlayerBehaviorManager.instance.init(this);
+        PlayerBehaviorManager.instance.init(this, this._spawnPoint.x, this._spawnPoint.y);
         this._cube = PlayerBehaviorManager.instance.stateMachine.currentState.object;
         //console.log(PlayerBehaviorManager.instance.currentScene);
         this.cameras.main.startFollow(this._cube, true);
@@ -75,6 +77,11 @@ class GeoDashScene extends Phaser.Scene
         this._collectibleCount = 0;
         const objects = this.map.getObjectLayer('object Layer')!.objects as any[];
         objects.forEach((object) => {
+            if (object.type == "spawn")
+            {
+                this._spawnPoint.x = object.x!;
+                this._spawnPoint.y = object.y!;
+            }
             if (object.type == "spike")
             {
                 this._spikes.add(new Spikes(this, object.x!, object.y!, object.width!, object.height!)).setName(object.name);
