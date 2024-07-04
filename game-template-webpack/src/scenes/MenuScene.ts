@@ -32,7 +32,7 @@ class MenuScene extends Phaser.Scene {
         let lv3Text = this.add.text(this.game.renderer.width / 2 + 300, this.game.renderer.height / 2 + 200, 'Polargeist'
             + '\n' + 'BEST: ' + Math.round(LevelProgressManager.getInstance().getLevelProgress('Level3') * 100).toString() + '%',
             { fontSize: '30px', color: '#FF0000', fontStyle: 'bold' }).setOrigin(0.5, 0.5).setVisible(false);
-        this._playBtn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'playBtn').setInteractive();
+        this._playBtn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'playBtn').setVisible(false).disableInteractive();
         let pressing = false;
         this._playBtn.on('pointerover', () => {
             this._playBtn.setAlpha(0.85);
@@ -56,7 +56,10 @@ class MenuScene extends Phaser.Scene {
                 lv3Text.setVisible(true);
             }
         });
-
+        this.time.delayedCall(500, () => {
+            this._playBtn.setVisible(true).setInteractive();
+        });
+        const fx = this.cameras.main.postFX.addWipe(0.3, 1, 1);
         this._lv1Btn = this.add.image(this.game.renderer.width / 2 - 300, this.game.renderer.height / 2 + 100, 'lv1Btn').setVisible(false).disableInteractive();
         this._lv1Btn.on('pointerover', () => {
             this._lv1Btn.setAlpha(0.85);
@@ -66,7 +69,18 @@ class MenuScene extends Phaser.Scene {
         });
         this._lv1Btn.on('pointerdown', () => {
             this._menuLoop.stopAndRemoveBufferSource();
-            this.scene.start('Level1');
+            this.sound.play('playSound');
+            this.scene.transition({
+                target: 'Level1',
+                duration: 500,
+                moveBelow: true,
+                onUpdate: (progress: number) => {
+                    fx.progress = progress;
+                }
+            });
+        });
+        this._lv1Btn.on('pointerup', () => {
+            this._lv1Btn.clearTint();
         });
 
         this._lv2Btn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, 'lv2Btn').setVisible(false).disableInteractive();
@@ -78,7 +92,18 @@ class MenuScene extends Phaser.Scene {
         });
         this._lv2Btn.on('pointerdown', () => {
             this._menuLoop.stopAndRemoveBufferSource();
-            this.scene.start('Level2');
+            this.sound.play('playSound');
+            this.scene.transition({
+                target: 'Level2',
+                duration: 500,
+                moveBelow: true,
+                onUpdate: (progress: number) => {
+                    fx.progress = progress;
+                }
+            });
+        });
+        this._lv2Btn.on('pointerup', () => {
+            this._lv2Btn.clearTint();
         });
 
         this._lv3Btn = this.add.image(this.game.renderer.width / 2 + 300, this.game.renderer.height / 2 + 100, 'lv3Btn').setVisible(false).disableInteractive();
@@ -90,7 +115,18 @@ class MenuScene extends Phaser.Scene {
         });
         this._lv3Btn.on('pointerdown', () => {
             this._menuLoop.stopAndRemoveBufferSource();
-            this.scene.start('Level3');
+            this.sound.play('playSound');
+            this.scene.transition({
+                target: 'Level3',
+                duration: 500,
+                moveBelow: true,
+                onUpdate: (progress: number) => {
+                    fx.progress = progress;
+                }
+            });
+        });
+        this._lv3Btn.on('pointerup', () => {
+            this._lv3Btn.clearTint();
         });
     }
 }

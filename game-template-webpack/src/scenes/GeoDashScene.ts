@@ -370,10 +370,22 @@ class GeoDashScene extends Phaser.Scene
         if (LevelProgressScene.newBest == true)
         {
             console.log('New Best');
-            let newBestBanner = this.add.image(PlayerBehaviorManager.instance.playerPosition.x, this.game.renderer.height / 2, 'newBest').setOrigin(0.5, 0.5);
-            let newBest = this.add.text(PlayerBehaviorManager.instance.playerPosition.x, this.game.renderer.height / 2 + 200, 
+            let newBestBanner = this.add.image(PlayerBehaviorManager.instance.playerPosition.x, 0, 'newBest').setOrigin(0.5, 0.5);
+            this.tweens.add({
+                targets: newBestBanner,
+                y: this.game.renderer.height / 2,
+                duration: 500,
+                ease: 'Bounce',
+            });
+            let newBest = this.add.text(PlayerBehaviorManager.instance.playerPosition.x, 0, 
                 (Math.round(LevelProgressManager.getInstance().getLevelProgress(this.scene.key)*100)).toString() + "%", 
                 { fontSize: '100px', color: '#FFD700', fontStyle: 'bold'}).setOrigin(0.5, 0.5);
+            this.tweens.add({
+                targets: newBest,
+                y: this.game.renderer.height / 2 + 200,
+                duration: 500,
+                ease: 'Bounce',
+            });
             this.time.delayedCall(1000, () => {
                 newBestBanner.destroy();
                 newBest.destroy();

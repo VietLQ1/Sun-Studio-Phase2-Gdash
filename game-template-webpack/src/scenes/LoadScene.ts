@@ -23,6 +23,7 @@ class LoadScene extends Phaser.Scene
         this.load.tilemapTiledJSON('lv3', 'assets/tilemaps/polargeist.json');
         this.load.image('tiles', 'assets/tilemaps/kenney_redux_64x64.png');
         this.load.audio('menuLoop', 'assets/sounds/menuLoop.mp3')
+        this.load.audio('playSound', ['assets/sounds/playSound.ogg' ,'assets/sounds/playSound.mp3'])
         this.load.audio('StereoMadness', 'assets/sounds/StereoMadness.mp3');
         this.load.audio('BackOnTrack', 'assets/sounds/BackOnTrack.mp3');
         this.load.audio('Polargeist', 'assets/sounds/Polargeist.mp3');
@@ -52,7 +53,18 @@ class LoadScene extends Phaser.Scene
         {
             this.doubleLoadAudio();
         }
-        this.scene.start('Menu');
+        const fx = this.cameras.main.postFX.addWipe();
+
+        this.scene.transition({
+            target: 'Menu',
+            duration: 1000,
+            moveBelow: true,
+            onUpdate: (progress: number) => {
+
+                fx.progress = progress;
+
+            }
+        });
     }
     private doubleLoadAudio(): void
     {
