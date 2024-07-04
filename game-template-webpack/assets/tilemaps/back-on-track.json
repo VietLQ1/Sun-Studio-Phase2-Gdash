@@ -1053,6 +1053,17 @@
                  "width":64,
                  "x":32320,
                  "y":0
+                }, 
+                {
+                 "height":16,
+                 "id":266,
+                 "name":"jumpPad",
+                 "rotation":0,
+                 "type":"jumpPad",
+                 "visible":true,
+                 "width":64,
+                 "x":32128,
+                 "y":1008
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1061,7 +1072,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":265,
+ "nextobjectid":267,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -4,6 +4,7 @@ import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
 import GeoDashScene from "./GeoDashScene";
 
 class LevelProgressScene extends Phaser.Scene {
+    public static newBest: boolean = false;
     private _levelProgress: number = 0;
     private _progressBar: Phaser.GameObjects.NineSlice;
     private _progressFill: Phaser.GameObjects.NineSlice;
@@ -23,7 +24,16 @@ class LevelProgressScene extends Phaser.Scene {
         this._levelProgress = scene.cube.body?.position.x! / scene.map.widthInPixels;
         this._progressFill.displayWidth = 845 * this._levelProgress;
         if (this._levelProgress > LevelProgressManager.getInstance().getLevelProgress(scene.scene.key))
+        {
+            //console.log('New Best');
             LevelProgressManager.getInstance().setLevelProgress(scene.scene.key,this._levelProgress);
+            LevelProgressScene.newBest = true;
+        }
+        else if (this._levelProgress < LevelProgressManager.getInstance().getLevelProgress(scene.scene.key))
+        {
+            LevelProgressScene.newBest = false;
+            //console.log('Not New Best');
+        }
         this._progressText.setText('Coins: ' + LevelProgressManager.getInstance().getLevelProgress(scene.scene.key + 'coins'));
     }
 }

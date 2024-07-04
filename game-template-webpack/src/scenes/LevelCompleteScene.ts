@@ -4,14 +4,10 @@ class LevelCompleteScene extends Phaser.Scene {
     }
 
     create() {
-        const { width, height } = this.scale;
-
-        this.add.text(width * 0.5, height * 0.5, 'Level Complete', {
-            fontSize: '48px',
-            color: '#ffffff',
-        }).setOrigin(0.5);
-
-        this.input.once('pointerdown', () => {
+        this.cameras.main.setBackgroundColor(0x000000);
+        let levelComplete = this.add.image(0, 0, 'levelComplete').setOrigin(0);
+        levelComplete.setInteractive();
+        levelComplete.on('pointerdown', () => {
             this.scene.start('Menu');
         });
     }

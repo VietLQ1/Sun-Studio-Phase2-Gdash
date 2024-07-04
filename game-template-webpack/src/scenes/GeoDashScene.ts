@@ -8,6 +8,7 @@ import Spikes from "../game-object/Spikes";
 import InputHandler from "../input/InputHandler";
 import LevelProgressManager from "../manager/LevelProgressManager";
 import PlayerBehaviorManager from "../manager/PlayerBehaviorManager";
+import LevelProgressScene from "./LevelProgressScene";
 
 enum LevelState {PLAYING, PAUSED, COMPLETED, FAILED};
 class GeoDashScene extends Phaser.Scene
@@ -359,6 +360,18 @@ class GeoDashScene extends Phaser.Scene
         flame.once("complete", () => {
             flame.destroy();
         });
+        if (LevelProgressScene.newBest == true)
+        {
+            console.log('New Best');
+            let newBestBanner = this.add.image(PlayerBehaviorManager.instance.playerPosition.x, this.game.renderer.height / 2, 'newBest').setOrigin(0.5, 0.5);
+            let newBest = this.add.text(PlayerBehaviorManager.instance.playerPosition.x, this.game.renderer.height / 2 + 200, 
+                (Math.round(LevelProgressManager.getInstance().getLevelProgress(this.scene.key)*100)).toString() + "%", 
+                { fontSize: '100px', color: '#FFD700', fontStyle: 'bold'}).setOrigin(0.5, 0.5);
+            this.time.delayedCall(1000, () => {
+                newBestBanner.destroy();
+                newBest.destroy();
+            });
+        }
         this.scene.pause("UI");
     }
 }
