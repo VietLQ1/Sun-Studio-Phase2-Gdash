@@ -82,6 +82,7 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
         }
         else if (!value && this.scene instanceof GeoDashScene) {
             this.scene.inputHandler.detach(this);
+            this._jumping = false;
         }
         return this;
     }

@@ -106,6 +106,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         else if (!value && this.scene instanceof GeoDashScene)
         {
             this.scene.inputHandler.detach(this);
+            this._flying = false;
         }
         return this;
     }
