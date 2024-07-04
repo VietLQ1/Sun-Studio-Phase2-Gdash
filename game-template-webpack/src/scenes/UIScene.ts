@@ -5,6 +5,7 @@ class UIScene extends Phaser.Scene {
     private _pauseBtn: Phaser.GameObjects.Image;
     private _resumeBtn: Phaser.GameObjects.Image;
     private _menuBtn: Phaser.GameObjects.Image;
+    private _restartBtn: Phaser.GameObjects.Image;
     constructor() {
         super('UI');
     }
@@ -23,6 +24,7 @@ class UIScene extends Phaser.Scene {
             this._pauseBtn.disableInteractive();
             this._resumeBtn.setVisible(true).setInteractive();
             this._menuBtn.setVisible(true).setInteractive();
+            this._restartBtn.setVisible(true).setInteractive();
         });
 
         this.input.keyboard!.on('keydown-ESC', () => {
@@ -33,6 +35,7 @@ class UIScene extends Phaser.Scene {
                 this._pauseBtn.setInteractive();
                 this._resumeBtn.setVisible(false).disableInteractive();
                 this._menuBtn.setVisible(false).disableInteractive();
+                this._restartBtn.setVisible(false).disableInteractive();
             }
             else {
                 scene.pause();
@@ -40,6 +43,7 @@ class UIScene extends Phaser.Scene {
                 this._pauseBtn.disableInteractive();
                 this._resumeBtn.setVisible(true).setInteractive();
                 this._menuBtn.setVisible(true).setInteractive();
+                this._restartBtn.setVisible(true).setInteractive();
             }
         });
 
@@ -56,6 +60,7 @@ class UIScene extends Phaser.Scene {
             this._resumeBtn.setVisible(false).disableInteractive();
             this._menuBtn.setVisible(false).disableInteractive();
             this._pauseBtn.setVisible(true).setInteractive();
+            this._restartBtn.setVisible(false).disableInteractive();
         });
 
         this._menuBtn = this.add.image(this.game.renderer.width / 2 + 200, this.game.renderer.height / 2, 'menuBtn').setOrigin(0.5, 0.5).setVisible(false).disableInteractive();
@@ -69,6 +74,22 @@ class UIScene extends Phaser.Scene {
             let scene = PlayerBehaviorManager.instance.currentScene as GeoDashScene;
             scene.stop();
             scene.scene.start('Menu');
+        });
+
+        this._restartBtn = this.add.image(this.game.renderer.width / 2 - 200, this.game.renderer.height / 2, 'restartBtn').setOrigin(0.5, 0.5).setVisible(false).disableInteractive();
+        this._restartBtn.on('pointerover', () => {
+            this._restartBtn.setAlpha(0.85);
+        });
+        this._restartBtn.on('pointerout', () => {
+            this._restartBtn.setAlpha(1);
+        });
+        this._restartBtn.on('pointerdown', () => {
+            let scene = PlayerBehaviorManager.instance.currentScene as GeoDashScene;
+            scene.scene.restart();
+            this._pauseBtn.setVisible(true).setInteractive();
+            this._resumeBtn.setVisible(false).disableInteractive();
+            this._menuBtn.setVisible(false).disableInteractive();
+            this._restartBtn.setVisible(false).disableInteractive();
         });
     }
 }
