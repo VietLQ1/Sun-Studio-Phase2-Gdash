@@ -17,6 +17,9 @@ class PlayerCubeState implements GeoDash.IPlayerState
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
         this.object.setActive(true);
         this.object.setVisible(true);
+        let body = this.object.body as Phaser.Physics.Arcade.Body;
+        body.setVelocityY(0);
+        body.allowGravity = true;
     }
     public onExit: () => void = () =>
     {
@@ -33,6 +36,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
         //     return;
         // }
         body.setVelocityX(0);
+        body.allowGravity = false;
     }
     public update(): void
     {

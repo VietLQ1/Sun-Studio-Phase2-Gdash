@@ -22,6 +22,10 @@ class PlayerStateMachine
     }
     public setState(name: string): void
     {
+        if (this._currentState && this._currentState === this.stateMap.get(name))
+        {
+            return;
+        }
         if (this._currentState)
         {
             this._currentState.onExit();
