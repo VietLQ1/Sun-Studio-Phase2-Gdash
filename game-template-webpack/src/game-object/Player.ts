@@ -75,5 +75,15 @@ class Player extends Phaser.GameObjects.Sprite implements GeoDash.IObserver {
             this.angle = 180;
         }
     }
+    public setActive(value: boolean): this {
+        super.setActive(value);
+        if (value && this.scene instanceof GeoDashScene) {
+            this.scene.inputHandler.attach(this);
+        }
+        else if (!value && this.scene instanceof GeoDashScene) {
+            this.scene.inputHandler.detach(this);
+        }
+        return this;
+    }
 }
 export default Player;

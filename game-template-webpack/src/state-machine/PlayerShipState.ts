@@ -19,6 +19,7 @@ class PlayerShipState implements GeoDash.IPlayerState
         this.object.setVisible(true);
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
         body.setVelocityY(0);
+        body.allowGravity = true;
         
     }
     public onExit: () => void = () =>
@@ -30,6 +31,7 @@ class PlayerShipState implements GeoDash.IPlayerState
         this.object.setVisible(false);
         let body = this.object.body as Phaser.Physics.Arcade.Body;
         body.setVelocityX(0);
+        body.allowGravity = false;
     }
     public update(): void
     {

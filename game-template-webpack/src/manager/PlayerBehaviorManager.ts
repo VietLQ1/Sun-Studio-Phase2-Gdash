@@ -15,8 +15,8 @@ class PlayerBehaviorManager {
         this.currentScene = scene;
         this._stateMachine = new PlayerStateMachine();
         this._playerPosition.set(0, 1000);
-        this._stateMachine.addState("cube", new PlayerCubeState(new Player(scene, 0, 400, "cube")));
-        this._stateMachine.addState("ship", new PlayerShipState(new PlayerShip(scene, 0, 400)));
+        this._stateMachine.addState("cube", new PlayerCubeState(new Player(scene, 0, 800, "cube")));
+        this._stateMachine.addState("ship", new PlayerShipState(new PlayerShip(scene, 0, 800)));
         this._stateMachine.setState("cube");
     }
     private static _instance: PlayerBehaviorManager;

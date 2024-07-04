@@ -279,7 +279,7 @@ class GeoDashScene extends Phaser.Scene
             }
             else if (trigger instanceof JumpOrb)
             {
-                if (this.input.keyboard?.keys[Phaser.Input.Keyboard.KeyCodes.SPACE].isDown)
+                if (this.input.keyboard?.keys[Phaser.Input.Keyboard.KeyCodes.SPACE].isDown || this.input.activePointer.isDown)
                 {
                     body.setVelocityY(trigger.jumpForce);
                 }

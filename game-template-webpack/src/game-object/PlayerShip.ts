@@ -34,6 +34,7 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         let body = this.body as Phaser.Physics.Arcade.Body;
         body.setSize(57, 57);
         body.setMaxVelocityY(1000);
+        body.allowGravity = false;
     }
     public onNotify(subject: GeoDash.ISubject): void
     {
@@ -89,6 +90,24 @@ class PlayerShip extends Phaser.GameObjects.Container implements GeoDash.IObserv
         let angleDegrees = Phaser.Math.RadToDeg(angleRadians);
         this.angle = angleDegrees;
         
+    }
+    public setActive(value: boolean): this {
+        super.setActive(value);
+        this.getAll().forEach((child) => {
+            if (child instanceof Phaser.GameObjects.Sprite)
+            {
+                child.setActive(value);
+            }
+        });
+        if (value && this.scene instanceof GeoDashScene)
+        {
+            this.scene.inputHandler.attach(this);
+        }
+        else if (!value && this.scene instanceof GeoDashScene)
+        {
+            this.scene.inputHandler.detach(this);
+        }
+        return this;
     }
 }
 export default PlayerShip;

@@ -12,6 +12,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
     }
     public onEnter: () => void = () =>
     {
+        // this.object.scene.cameras.main.zoomTo(1.5, 1000);
         console.log("PlayerCubeState onEnter");
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
         this.object.setActive(true);
@@ -19,6 +20,7 @@ class PlayerCubeState implements GeoDash.IPlayerState
     }
     public onExit: () => void = () =>
     {
+        // this.object.scene.cameras.main.zoomTo(1, 1000);
         console.log(this.object.x, this.object.y)
         console.log("PlayerCubeState onExit");
         //PlayerBehaviorManager.instance.playerPosition = new Phaser.Math.Vector2(this.object.x, this.object.y);

@@ -11,6 +11,12 @@ class LevelCompleteScene extends Phaser.Scene {
     }
     public create() {
         //this.cameras.main.setBackgroundColor(0x000000);
+        this.add.graphics(  {
+            fillStyle: {
+                color: 0x000000,
+                alpha: 0.75
+            }
+        }).fillRect(0, 0, this.game.renderer.width, this.game.renderer.height);
         this.add.image(this.game.renderer.width/2, this.game.renderer.height/2, 'levelComplete').setOrigin(0.5, 0.5);
         this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 100, 'Coins: ' +
         LevelProgressManager.getInstance().getLevelProgress(PlayerBehaviorManager.instance.currentScene.scene.key + 'coins').toString() + '/3', 

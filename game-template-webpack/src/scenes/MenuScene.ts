@@ -10,10 +10,21 @@ class MenuScene extends Phaser.Scene {
     public preload() {
     }
     public create() {
-        this.sound.on('unlocked', () => {
+        // this.sound.on('unlocked', () => {
+        //     this._menuLoop = this.sound.add('menuLoop', { loop: true }) as Phaser.Sound.WebAudioSound;
+        //     this._menuLoop.play();
+        // });
+        if (this.sound.locked) {
+            this.sound.once('unlocked', () => {
+                this._menuLoop = this.sound.add('menuLoop', { loop: true }) as Phaser.Sound.WebAudioSound;
+                this._menuLoop.play();
+            });
+        }
+        else
+        {
             this._menuLoop = this.sound.add('menuLoop', { loop: true }) as Phaser.Sound.WebAudioSound;
             this._menuLoop.play();
-        });
+        }
         this.add.image(0, 0, 'bg').setOrigin(0, 0).setDisplaySize(this.game.renderer.width, this.game.renderer.height).setTint(0x0000ff).setAlpha(0.75);
         this._playBtn = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'playBtn').setInteractive();
         let pressing = false;
