@@ -84,9 +84,20 @@ class UIScene extends Phaser.Scene {
             this._menuBtn.setAlpha(1);
         });
         this._menuBtn.on('pointerdown', () => {
+            this.scene.stop('LevelProgress');
             let scene = PlayerBehaviorManager.instance.currentScene as GeoDashScene;
-            scene.stop();
-            scene.scene.start('Menu');
+            const fx = this.cameras.main.postFX.addWipe();
+            this.scene.transition({
+                target: 'Menu',
+                duration: 1000,
+                moveBelow: true,
+                onUpdate: (progress: number) => {
+                    fx.progress = progress;
+                }
+            });
+            this.time.delayedCall(1000, () => {
+                scene.scene.stop();
+            }, [], this);
         });
 
         this._restartBtn = this.add.image(this.game.renderer.width / 2 - 200, this.game.renderer.height / 2, 'restartBtn').setOrigin(0.5, 0.5).setVisible(false).disableInteractive();

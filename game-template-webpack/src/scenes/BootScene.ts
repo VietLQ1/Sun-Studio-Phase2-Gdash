@@ -10,6 +10,10 @@ class BootScene extends Phaser.Scene {
         this.load.image('bg', 'assets/images/bg.png');
         this.load.image('progressBar', 'assets/images/process-bar-front.png');
         this.load.image('progressFill', 'assets/images/process-bar-back.png');
+
+        this.load.once('complete', () => {
+            this.scale.setParentSize(window.innerWidth, window.innerHeight);
+        });
     }
     public update(time: number, delta: number): void {
         super.update(time, delta);
