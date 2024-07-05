@@ -45,6 +45,7 @@ class GeoDashScene extends Phaser.Scene
     protected initialize(): void
     {
         this._levelState = LevelState.PLAYING;
+        LevelProgressManager.getInstance().setLevelProgress(this.scene.key + 'attempts', LevelProgressManager.getInstance().getLevelProgress(this.scene.key + 'attempts') + 1);
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setFPS(144);

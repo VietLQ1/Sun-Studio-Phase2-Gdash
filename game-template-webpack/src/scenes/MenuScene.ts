@@ -68,6 +68,7 @@ class MenuScene extends Phaser.Scene {
             this._lv1Btn.setAlpha(1);
         });
         this._lv1Btn.on('pointerdown', () => {
+            LevelProgressManager.getInstance().resetLevelProgress('Level1attempts');
             this._menuLoop.stopAndRemoveBufferSource();
             this.sound.play('playSound');
             this.scene.transition({
@@ -91,6 +92,7 @@ class MenuScene extends Phaser.Scene {
             this._lv2Btn.setAlpha(1);
         });
         this._lv2Btn.on('pointerdown', () => {
+            LevelProgressManager.getInstance().resetLevelProgress('Level2attempts');
             this._menuLoop.stopAndRemoveBufferSource();
             this.sound.play('playSound');
             this.scene.transition({
@@ -114,6 +116,7 @@ class MenuScene extends Phaser.Scene {
             this._lv3Btn.setAlpha(1);
         });
         this._lv3Btn.on('pointerdown', () => {
+            LevelProgressManager.getInstance().resetLevelProgress('Level3attempts');
             this._menuLoop.stopAndRemoveBufferSource();
             this.sound.play('playSound');
             this.scene.transition({

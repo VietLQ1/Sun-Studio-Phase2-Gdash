@@ -21,6 +21,9 @@ class LevelCompleteScene extends Phaser.Scene {
         this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 100, 'Coins: ' +
         LevelProgressManager.getInstance().getLevelProgress(PlayerBehaviorManager.instance.currentScene.scene.key + 'coins').toString() + '/3', 
         { fontSize: '80px', color: '#FFD700', fontStyle: 'bold' }).setOrigin(0.5, 0.5);
+        this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 300, 'Attempts: ' +
+        LevelProgressManager.getInstance().getLevelProgress(PlayerBehaviorManager.instance.currentScene.scene.key + 'attempts').toString(), 
+        { fontSize: '80px', color: '#FFD700', fontStyle: 'bold' }).setOrigin(0.5, 0.5);
         let menuBtn = this.add.image(this.game.renderer.width/2 - 200, this.game.renderer.height/2 + 200, 'menuBtn').setOrigin(0.5, 0.5).setInteractive();
         menuBtn.on('pointerover', () => {
             menuBtn.setAlpha(0.85);
@@ -49,6 +52,7 @@ class LevelCompleteScene extends Phaser.Scene {
         });
         restartBtn.on('pointerdown', () => {
             let scene = PlayerBehaviorManager.instance.currentScene as GeoDashScene;
+            LevelProgressManager.getInstance().resetLevelProgress(scene.scene.key + 'attempts');
             scene.scene.restart();
             this.scene.start('UI');
         });

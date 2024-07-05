@@ -23,5 +23,8 @@ class LevelProgressManager {
             localStorage.setItem(level, progress.toString());
         }
     }
+    public resetLevelProgress(level: string): void {
+        localStorage.setItem(level, "0");
+    }
 }
 export default LevelProgressManager;
