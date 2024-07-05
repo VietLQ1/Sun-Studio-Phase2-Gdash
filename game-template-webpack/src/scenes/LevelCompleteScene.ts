@@ -29,7 +29,15 @@ class LevelCompleteScene extends Phaser.Scene {
             menuBtn.setAlpha(1);
         });
         menuBtn.on('pointerdown', () => {
-            this.scene.start('Menu');
+            const fx = this.cameras.main.postFX.addWipe(0.3, 1, 1);
+            this.scene.transition({
+                target: 'Menu',
+                duration: 500,
+                moveBelow: true,
+                onUpdate: (progress: number) => {
+                    fx.progress = progress;
+                }
+            });
         });
 
         let restartBtn = this.add.image(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 200, 'restartBtn').setOrigin(0.5, 0.5).setInteractive();
