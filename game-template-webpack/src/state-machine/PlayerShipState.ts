@@ -18,7 +18,7 @@ class PlayerShipState implements GeoDash.IPlayerState
         this.object.setActive(true);
         this.object.setVisible(true);
         this.object.setPosition(PlayerBehaviorManager.instance.playerPosition.x, PlayerBehaviorManager.instance.playerPosition.y);
-        body.setVelocityY(0);
+        body.setVelocityY(200);
         body.allowGravity = true;
         
     }
