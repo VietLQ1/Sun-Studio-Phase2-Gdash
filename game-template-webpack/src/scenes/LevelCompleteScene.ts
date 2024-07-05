@@ -17,14 +17,14 @@ class LevelCompleteScene extends Phaser.Scene {
                 alpha: 0.75
             }
         }).fillRect(0, 0, this.game.renderer.width, this.game.renderer.height);
-        this.add.image(this.game.renderer.width/2, this.game.renderer.height/2, 'levelComplete').setOrigin(0.5, 0.5);
-        this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 100, 'Coins: ' +
+        this.add.image(this.game.renderer.width/2, this.game.renderer.height/2 - 100, 'levelComplete').setOrigin(0.5, 0.5);
+        this.add.text(this.game.renderer.width/2, this.game.renderer.height/2, 'Coins: ' +
         LevelProgressManager.getInstance().getLevelProgress(PlayerBehaviorManager.instance.currentScene.scene.key + 'coins').toString() + '/3', 
         { fontSize: '80px', color: '#FFD700', fontStyle: 'bold' }).setOrigin(0.5, 0.5);
-        this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 300, 'Attempts: ' +
+        this.add.text(this.game.renderer.width/2, this.game.renderer.height/2 + 200, 'Attempts: ' +
         LevelProgressManager.getInstance().getLevelProgress(PlayerBehaviorManager.instance.currentScene.scene.key + 'attempts').toString(), 
         { fontSize: '80px', color: '#FFD700', fontStyle: 'bold' }).setOrigin(0.5, 0.5);
-        let menuBtn = this.add.image(this.game.renderer.width/2 - 200, this.game.renderer.height/2 + 200, 'menuBtn').setOrigin(0.5, 0.5).setInteractive();
+        let menuBtn = this.add.image(this.game.renderer.width/2 - 200, this.game.renderer.height/2 + 100, 'menuBtn').setOrigin(0.5, 0.5).setInteractive();
         menuBtn.on('pointerover', () => {
             menuBtn.setAlpha(0.85);
         });
@@ -43,7 +43,7 @@ class LevelCompleteScene extends Phaser.Scene {
             });
         });
 
-        let restartBtn = this.add.image(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 200, 'restartBtn').setOrigin(0.5, 0.5).setInteractive();
+        let restartBtn = this.add.image(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 100, 'restartBtn').setOrigin(0.5, 0.5).setInteractive();
         restartBtn.on('pointerover', () => {
             restartBtn.setAlpha(0.85);
         });
