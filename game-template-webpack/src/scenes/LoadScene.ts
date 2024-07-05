@@ -57,7 +57,7 @@ class LoadScene extends Phaser.Scene
 
         this.scene.transition({
             target: 'Menu',
-            duration: 1000,
+            duration: 500,
             moveBelow: true,
             onUpdate: (progress: number) => {
 

@@ -56,7 +56,7 @@ class MenuScene extends Phaser.Scene {
                 lv3Text.setVisible(true);
             }
         });
-        this.time.delayedCall(500, () => {
+        this.time.delayedCall(250, () => {
             this._playBtn.setVisible(true).setInteractive();
         });
         const fx = this.cameras.main.postFX.addWipe(0.3, 1, 1);

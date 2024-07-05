@@ -89,13 +89,13 @@ class UIScene extends Phaser.Scene {
             const fx = this.cameras.main.postFX.addWipe();
             this.scene.transition({
                 target: 'Menu',
-                duration: 1000,
+                duration: 500,
                 moveBelow: true,
                 onUpdate: (progress: number) => {
                     fx.progress = progress;
                 }
             });
-            this.time.delayedCall(1000, () => {
+            this.time.delayedCall(500, () => {
                 scene.scene.stop();
             }, [], this);
         });
